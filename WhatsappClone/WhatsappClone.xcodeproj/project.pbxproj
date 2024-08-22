@@ -11,6 +11,12 @@
 		6A67AABE2C764B5F008F0100 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AABD2C764B5F008F0100 /* LoginViewController.swift */; };
 		6A67AAC02C764B98008F0100 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AABF2C764B98008F0100 /* LoginViewModel.swift */; };
 		6A67AAC32C76E019008F0100 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AAC22C76E019008F0100 /* UIColor+Extension.swift */; };
+		6A67AACA2C76F042008F0100 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A67AAC92C76F042008F0100 /* GoogleService-Info.plist */; };
+		6A67AACC2C76F339008F0100 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AACB2C76F339008F0100 /* UserModel.swift */; };
+		6A67AACE2C76F466008F0100 /* FirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AACD2C76F466008F0100 /* FirebaseHelper.swift */; };
+		6A67AAD12C76F5F4008F0100 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AAD02C76F5F4008F0100 /* Constant.swift */; };
+		6A67AAD52C76F8F4008F0100 /* FirebaseCollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AAD42C76F8F4008F0100 /* FirebaseCollectionReference.swift */; };
+		6A67AAD82C76FACF008F0100 /* FirebaseUserListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AAD72C76FACF008F0100 /* FirebaseUserListener.swift */; };
 		6A9B6F9C2C762AE600614F5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9B6F9B2C762AE600614F5D /* AppDelegate.swift */; };
 		6A9B6F9E2C762AE600614F5D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9B6F9D2C762AE600614F5D /* SceneDelegate.swift */; };
 		6A9B6FA52C762AE800614F5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A9B6FA42C762AE800614F5D /* Assets.xcassets */; };
@@ -22,6 +28,12 @@
 		6A67AABD2C764B5F008F0100 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6A67AABF2C764B98008F0100 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6A67AAC22C76E019008F0100 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		6A67AAC92C76F042008F0100 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6A67AACB2C76F339008F0100 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		6A67AACD2C76F466008F0100 /* FirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelper.swift; sourceTree = "<group>"; };
+		6A67AAD02C76F5F4008F0100 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		6A67AAD42C76F8F4008F0100 /* FirebaseCollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirebaseCollectionReference.swift; path = "../../../../../../../../Library/Mobile Documents/com~apple~CloudDocs/FirebaseCollectionReference.swift"; sourceTree = "<group>"; };
+		6A67AAD72C76FACF008F0100 /* FirebaseUserListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserListener.swift; sourceTree = "<group>"; };
 		6A9B6F982C762AE600614F5D /* WhatsappClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatsappClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A9B6F9B2C762AE600614F5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A9B6F9D2C762AE600614F5D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +78,8 @@
 		6A67AAC12C76DFF3008F0100 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				6A67AAD62C76FABC008F0100 /* Firebase */,
+				6A67AAD32C76F8E4008F0100 /* Enum */,
 				6A67AAC22C76E019008F0100 /* UIColor+Extension.swift */,
 			);
 			path = Helper;
@@ -74,8 +88,41 @@
 		6A67AAC42C76EABF008F0100 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6A67AACB2C76F339008F0100 /* UserModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		6A67AACF2C76F5EA008F0100 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6A67AAD02C76F5F4008F0100 /* Constant.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		6A67AAD32C76F8E4008F0100 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				6A67AAD42C76F8F4008F0100 /* FirebaseCollectionReference.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		6A67AAD62C76FABC008F0100 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				6A67AACD2C76F466008F0100 /* FirebaseHelper.swift */,
+				6A67AAD72C76FACF008F0100 /* FirebaseUserListener.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		6A67AAD92C7746F0008F0100 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Register;
 			sourceTree = "<group>";
 		};
 		6A9B6F8F2C762AE600614F5D = {
@@ -99,6 +146,9 @@
 		6A9B6F9A2C762AE600614F5D /* WhatsappClone */ = {
 			isa = PBXGroup;
 			children = (
+				6A67AAD92C7746F0008F0100 /* Register */,
+				6A67AACF2C76F5EA008F0100 /* Utils */,
+				6A67AAC92C76F042008F0100 /* GoogleService-Info.plist */,
 				6A67AAC12C76DFF3008F0100 /* Helper */,
 				6A67AABC2C764B07008F0100 /* Login */,
 				6A9B6F9B2C762AE600614F5D /* AppDelegate.swift */,
@@ -180,6 +230,7 @@
 			files = (
 				6A9B6FA52C762AE800614F5D /* Assets.xcassets in Resources */,
 				6A9B6FA82C762AE800614F5D /* Base in Resources */,
+				6A67AACA2C76F042008F0100 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,11 +283,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A67AACE2C76F466008F0100 /* FirebaseHelper.swift in Sources */,
 				6A67AAC02C764B98008F0100 /* LoginViewModel.swift in Sources */,
 				6A67AABE2C764B5F008F0100 /* LoginViewController.swift in Sources */,
+				6A67AAD12C76F5F4008F0100 /* Constant.swift in Sources */,
 				6A9B6F9C2C762AE600614F5D /* AppDelegate.swift in Sources */,
 				6A9B6F9E2C762AE600614F5D /* SceneDelegate.swift in Sources */,
+				6A67AAD52C76F8F4008F0100 /* FirebaseCollectionReference.swift in Sources */,
+				6A67AACC2C76F339008F0100 /* UserModel.swift in Sources */,
 				6A67AAC32C76E019008F0100 /* UIColor+Extension.swift in Sources */,
+				6A67AAD82C76FACF008F0100 /* FirebaseUserListener.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
