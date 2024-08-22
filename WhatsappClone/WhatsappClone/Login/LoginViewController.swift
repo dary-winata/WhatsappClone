@@ -133,6 +133,9 @@ private extension LoginViewController {
     @objc
     func registerButtonDidTapped() {
         print("Register")
+        let registerViewModel: RegisterViewModel = RegisterViewModel()
+        let registerViewController: RegisterViewController = RegisterViewController(viewModel: registerViewModel)
+        self.navigationController?.setViewControllers([registerViewController], animated: true)
     }
 }
 
