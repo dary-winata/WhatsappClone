@@ -118,6 +118,13 @@
 			path = Firebase;
 			sourceTree = "<group>";
 		};
+		6A67AAD92C7746F0008F0100 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
 		6A9B6F8F2C762AE600614F5D = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +146,7 @@
 		6A9B6F9A2C762AE600614F5D /* WhatsappClone */ = {
 			isa = PBXGroup;
 			children = (
+				6A67AAD92C7746F0008F0100 /* Register */,
 				6A67AACF2C76F5EA008F0100 /* Utils */,
 				6A67AAC92C76F042008F0100 /* GoogleService-Info.plist */,
 				6A67AAC12C76DFF3008F0100 /* Helper */,
