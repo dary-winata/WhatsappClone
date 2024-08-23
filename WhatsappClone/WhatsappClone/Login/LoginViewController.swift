@@ -123,7 +123,11 @@ class LoginViewController: UIViewController {
 private extension LoginViewController {
     @objc
     func forgetPasswordButtonDidTapped() {
-        print("Forget")
+        if let email = usernameTextField.text {
+            viewModel.onResetPasswordButtonDidTapped(email: email)
+        } else {
+            showProgressHudValue(with: "Please fill username", isSuccess: false)
+        }
     }
     
     @objc
@@ -198,5 +202,9 @@ extension LoginViewController: LoginViewModelDelegate {
         } else {
             ProgressHUD.failed(text)
         }
+    }
+    
+    func navigateToMainScreen() {
+        
     }
 }

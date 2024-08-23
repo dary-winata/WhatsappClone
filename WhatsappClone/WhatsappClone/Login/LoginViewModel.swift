@@ -11,6 +11,7 @@ protocol LoginViewModelProtocol: AnyObject {
     var delegate: LoginViewModelDelegate? { get set }
     func onViewDidLoad()
     func onLoginButtonDidTapped(email: String, password: String)
+    func onResetPasswordButtonDidTapped(email: String)
 }
 
 protocol LoginViewModelDelegate: AnyObject {
@@ -32,6 +33,16 @@ class LoginViewModel: LoginViewModelProtocol {
                 self.delegate?.showProgressHudValue(with: "Login Success", isSuccess: true)
             } else {
                 self.delegate?.showProgressHudValue(with: "error login: \(error?.localizedDescription ?? "")", isSuccess: false)
+            }
+        }
+    }
+    
+    func onResetPasswordButtonDidTapped(email: String) {
+        FirebaseUserListener.shared.resetPassword(email: email) { error in
+            if error == nil {
+                self.delegate?.showProgressHudValue(with: "Success reset password", isSuccess: true)
+            } else {
+                self.delegate?.showProgressHudValue(with: "Error reset password: \(error?.localizedDescription ?? "")", isSuccess: false)
             }
         }
     }

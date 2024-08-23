@@ -165,7 +165,8 @@
 			children = (
 				6AC91F532C77A2E300A60476 /* Constan.swift */,
 			);
-			path = Utils;
+			name = Utils;
+			path = Helper/Enum;
 			sourceTree = "<group>";
 		};
 		6AD5F2EE2C779CF70068DAE3 /* Recovered References */ = {
