@@ -5,6 +5,7 @@
 //  Created by dary winata nugraha djati on 21/08/24.
 //
 
+import ProgressHUD
 import UIKit
 
 class LoginViewController: UIViewController {
@@ -127,7 +128,11 @@ private extension LoginViewController {
     
     @objc
     func loginButtonDidTapped() {
-        
+        if let email = usernameTextField.text, let password = passwordTextField.text {
+            viewModel.onLoginButtonDidTapped(email: email, password: password)
+        } else {
+            showProgressHudValue(with: "Please fill all the blank coloum", isSuccess: false)
+        }
     }
     
     @objc
@@ -185,5 +190,13 @@ extension LoginViewController: LoginViewModelDelegate {
         
         stackRegisterView.addArrangedSubview(registerLabel)
         stackRegisterView.addArrangedSubview(registerButton)
+    }
+    
+    func showProgressHudValue(with text: String, isSuccess: Bool) {
+        if isSuccess {
+            ProgressHUD.success(text)
+        } else {
+            ProgressHUD.failed(text)
+        }
     }
 }

@@ -5,6 +5,7 @@
 //  Created by dary winata nugraha djati on 22/08/24.
 //
 
+import ProgressHUD
 import UIKit
 
 class RegisterViewController: UIViewController {
@@ -64,6 +65,7 @@ class RegisterViewController: UIViewController {
         btn.layer.cornerRadius = 30
         btn.heightAnchor.constraint(equalToConstant: 52).isActive = true
         btn.backgroundColor = UIColor(redMax: 4, greenMax: 73, blueMax: 73, alphaMax: 1)
+        btn.addTarget(self, action: #selector(registerButtonDidTapped), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         
         return btn
@@ -125,6 +127,15 @@ private extension RegisterViewController {
         let loginVC: LoginViewController = LoginViewController(viewModel: loginVM)
         self.navigationController?.setViewControllers([loginVC], animated: true)
     }
+    
+    @objc
+    func registerButtonDidTapped() {
+        if let email = usernameTextField.text, let password = passwordTextField.text, let passwordRepeat = repeatPasswordTextField.text {
+            viewModel.onRegisterButtonDidTapped(email: email, password: password, repeatPassword: passwordRepeat)
+        } else {
+            showProgressHudValue(with: "Please fill all the blank coloum", isSuccess: false)
+        }
+    }
 }
 
 extension RegisterViewController: RegisterViewModelDelegate {
@@ -175,5 +186,13 @@ extension RegisterViewController: RegisterViewModelDelegate {
         
         loginStackView.addArrangedSubview(loginLabel)
         loginStackView.addArrangedSubview(loginButton)
+    }
+    
+    func showProgressHudValue(with text: String, isSuccess: Bool) {
+        if isSuccess {
+            ProgressHUD.success(text)
+        } else {
+            ProgressHUD.failed(text)
+        }
     }
 }
