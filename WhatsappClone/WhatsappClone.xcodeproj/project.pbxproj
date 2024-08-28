@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		19B0F16212767DFBB20A913B /* Pods_WhatsappClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D87D142A18D6F6916CB2FAC /* Pods_WhatsappClone.framework */; };
+		6A67AABE2C764B5F008F0100 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AABD2C764B5F008F0100 /* LoginViewController.swift */; };
+		6A67AAC02C764B98008F0100 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AABF2C764B98008F0100 /* LoginViewModel.swift */; };
+		6A67AAC32C76E019008F0100 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AAC22C76E019008F0100 /* UIColor+Extension.swift */; };
 		6A7D1C2D2C79857D00F1F6D0 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D1C2C2C79857D00F1F6D0 /* ChatsViewController.swift */; };
 		6A7D1C2F2C79859500F1F6D0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D1C2E2C79859500F1F6D0 /* SettingsViewController.swift */; };
 		6A7D1C322C7985E800F1F6D0 /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D1C312C7985E800F1F6D0 /* HomeTabbarViewController.swift */; };
@@ -25,6 +28,9 @@
 
 /* Begin PBXFileReference section */
 		66213E1C246606E7EE096119 /* Pods-WhatsappClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatsappClone.release.xcconfig"; path = "Target Support Files/Pods-WhatsappClone/Pods-WhatsappClone.release.xcconfig"; sourceTree = "<group>"; };
+		6A67AABD2C764B5F008F0100 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		6A67AABF2C764B98008F0100 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		6A67AAC22C76E019008F0100 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		6A7D1C2C2C79857D00F1F6D0 /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		6A7D1C2E2C79859500F1F6D0 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		6A7D1C312C7985E800F1F6D0 /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +69,31 @@
 				66213E1C246606E7EE096119 /* Pods-WhatsappClone.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		6A67AABC2C764B07008F0100 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				6A67AAC42C76EABF008F0100 /* Model */,
+				6A67AABD2C764B5F008F0100 /* LoginViewController.swift */,
+				6A67AABF2C764B98008F0100 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		6A67AAC12C76DFF3008F0100 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				6A67AAC22C76E019008F0100 /* UIColor+Extension.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		6A67AAC42C76EABF008F0100 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		6A7D1C2A2C7984FD00F1F6D0 /* Chats */ = {
@@ -122,6 +153,8 @@
 		6A9B6F9A2C762AE600614F5D /* WhatsappClone */ = {
 			isa = PBXGroup;
 			children = (
+				6A67AAC12C76DFF3008F0100 /* Helper */,
+				6A67AABC2C764B07008F0100 /* Login */,
 				6A7D1C302C7985C000F1F6D0 /* Tabbar */,
 				6A7D1C2B2C79850800F1F6D0 /* Settings */,
 				6A7D1C2A2C7984FD00F1F6D0 /* Chats */,
@@ -266,11 +299,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A67AAC02C764B98008F0100 /* LoginViewModel.swift in Sources */,
+				6A67AABE2C764B5F008F0100 /* LoginViewController.swift in Sources */,
 				6A9B6F9C2C762AE600614F5D /* AppDelegate.swift in Sources */,
 				6A7D1C322C7985E800F1F6D0 /* HomeTabbarViewController.swift in Sources */,
 				6A7D1C342C7985F400F1F6D0 /* HomeTabbarViewModel.swift in Sources */,
 				6A8918BF2C7D916A0002E1F7 /* ShareLogoutUserView.swift in Sources */,
 				6A9B6F9E2C762AE600614F5D /* SceneDelegate.swift in Sources */,
+				6A67AAC32C76E019008F0100 /* UIColor+Extension.swift in Sources */,
 				6A7D1C3C2C7B8B9400F1F6D0 /* SettingsUserView.swift in Sources */,
 				6A7D1C2D2C79857D00F1F6D0 /* ChatsViewController.swift in Sources */,
 				6A7D1C362C7B87B700F1F6D0 /* ContactsViewModel.swift in Sources */,

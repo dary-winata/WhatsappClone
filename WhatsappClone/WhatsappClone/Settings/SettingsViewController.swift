@@ -53,10 +53,6 @@ class SettingsViewController: UIViewController {
     }
 }
 
-private extension SettingsViewController {
-
-}
-
 extension SettingsViewController: SettingsViewModelDelegate {
     func setupView() {
         self.view.backgroundColor = .gray

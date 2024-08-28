@@ -53,9 +53,12 @@ class SettingsUserView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func setupModel() {
-        
+}
+
+extension SettingsUserView {
+    func setupModel(username: String? = "", status: String? = "") {
+        usernameLabel.text = username
+        userStatusLabel.text = status
     }
 }
 
