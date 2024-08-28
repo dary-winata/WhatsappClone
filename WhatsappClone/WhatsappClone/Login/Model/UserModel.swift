@@ -11,6 +11,7 @@ struct UserModel: Equatable, Codable {
     var id: String = ""
     var username: String
     var email: String
+    var status: String
     var pushId: String = ""
     var avatar: String = ""
     var firstName: String?

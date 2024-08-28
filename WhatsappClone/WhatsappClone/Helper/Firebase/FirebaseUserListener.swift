@@ -78,7 +78,7 @@ class FirebaseUserListener {
     // func to save user to UserDefaults
     private func saveUser(email: String, uid: String) {
         // create object of user
-        let user: UserModel = UserModel(id: uid, username: email, email: email, avatar: "", firstName: "", lastName: "")
+        let user: UserModel = UserModel(id: uid, username: email, email: email, status: "", avatar: "", firstName: "", lastName: "")
         
         // save user to user defaults
         FirebaseHelper.saveUserToLocal(user)
