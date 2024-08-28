@@ -94,8 +94,7 @@ class FirebaseUserListener {
         } catch {
             print("Error Saving user to firestore: \(error.localizedDescription)")
         }
-    }
-    
+    }    
     // Mark: - Reset Password
     func resetPassword(email: String, completion: @escaping (_ error: Error?) -> Void) {
         Auth.auth().sendPasswordReset(withEmail: email) { err in

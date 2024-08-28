@@ -16,6 +16,9 @@
 		6A67AAD82C76FACF008F0100 /* FirebaseUserListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AAD72C76FACF008F0100 /* FirebaseUserListener.swift */; };
 		6A67AAE32C7752C9008F0100 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AAE22C7752C9008F0100 /* RegisterViewModel.swift */; };
 		6A67AAE52C7752D2008F0100 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AAE42C7752D2008F0100 /* RegisterViewController.swift */; };
+		6A67AACC2C76F339008F0100 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AACB2C76F339008F0100 /* UserModel.swift */; };
+		6A67AACE2C76F466008F0100 /* FirebaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AACD2C76F466008F0100 /* FirebaseHelper.swift */; };
+		6A67AAD12C76F5F4008F0100 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AAD02C76F5F4008F0100 /* Constant.swift */; };
 		6A9B6F9C2C762AE600614F5D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9B6F9B2C762AE600614F5D /* AppDelegate.swift */; };
 		6A9B6F9E2C762AE600614F5D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9B6F9D2C762AE600614F5D /* SceneDelegate.swift */; };
 		6A9B6FA52C762AE800614F5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A9B6FA42C762AE800614F5D /* Assets.xcassets */; };
@@ -37,6 +40,7 @@
 		6A67AAD72C76FACF008F0100 /* FirebaseUserListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserListener.swift; sourceTree = "<group>"; };
 		6A67AAE22C7752C9008F0100 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		6A67AAE42C7752D2008F0100 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		6A67AAD02C76F5F4008F0100 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		6A9B6F982C762AE600614F5D /* WhatsappClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatsappClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A9B6F9B2C762AE600614F5D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A9B6F9D2C762AE600614F5D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,8 +98,17 @@
 			isa = PBXGroup;
 			children = (
 				6AC91F502C77A26900A60476 /* UserModel.swift */,
+
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		6A67AACF2C76F5EA008F0100 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6A67AAD02C76F5F4008F0100 /* Constant.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		6A67AAD32C76F8E4008F0100 /* Enum */ = {
@@ -300,10 +313,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A67AACE2C76F466008F0100 /* FirebaseHelper.swift in Sources */,
 				6A67AAC02C764B98008F0100 /* LoginViewModel.swift in Sources */,
 				6A67AAE32C7752C9008F0100 /* RegisterViewModel.swift in Sources */,
 				6A67AAE52C7752D2008F0100 /* RegisterViewController.swift in Sources */,
 				6A67AABE2C764B5F008F0100 /* LoginViewController.swift in Sources */,
+				6A67AAD12C76F5F4008F0100 /* Constant.swift in Sources */,
 				6A9B6F9C2C762AE600614F5D /* AppDelegate.swift in Sources */,
 				6A9B6F9E2C762AE600614F5D /* SceneDelegate.swift in Sources */,
 				6A67AAD52C76F8F4008F0100 /* FirebaseCollectionReference.swift in Sources */,
@@ -311,6 +326,7 @@
 				6AD5F2EF2C779DB80068DAE3 /* FirebaseHelper.swift in Sources */,
 				6AC91F542C77A2E300A60476 /* Constan.swift in Sources */,
 				6AC91F552C77A2E900A60476 /* UserModel.swift in Sources */,
+				6A67AAC32C76E019008F0100 /* UIColor+Extension.swift in Sources */,
 				6A67AAD82C76FACF008F0100 /* FirebaseUserListener.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
