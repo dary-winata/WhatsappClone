@@ -33,7 +33,7 @@
 		6A67AAC92C76F042008F0100 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A67AACB2C76F339008F0100 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		6A67AACD2C76F466008F0100 /* FirebaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelper.swift; sourceTree = "<group>"; };
-		6A67AAD42C76F8F4008F0100 /* FirebaseCollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirebaseCollectionReference.swift; path = "../../../../../../../../Library/Mobile Documents/com~apple~CloudDocs/FirebaseCollectionReference.swift"; sourceTree = "<group>"; };
+		6A67AAD42C76F8F4008F0100 /* FirebaseCollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseCollectionReference.swift; sourceTree = "<group>"; };
 		6A67AAD72C76FACF008F0100 /* FirebaseUserListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserListener.swift; sourceTree = "<group>"; };
 		6A67AAE22C7752C9008F0100 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		6A67AAE42C7752D2008F0100 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -44,7 +44,7 @@
 		6A9B6FA72C762AE800614F5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A9B6FA92C762AE800614F5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AC91F502C77A26900A60476 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		6AC91F532C77A2E300A60476 /* Constan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constan.swift; path = WhatsappClone/Helper/Enum/Constan.swift; sourceTree = SOURCE_ROOT; };
+		6AC91F532C77A2E300A60476 /* Constan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constan.swift; path = WhatsappClone/Utils/Constan.swift; sourceTree = SOURCE_ROOT; };
 		8982861C24A5BF6556695749 /* Pods-WhatsappClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatsappClone.debug.xcconfig"; path = "Target Support Files/Pods-WhatsappClone/Pods-WhatsappClone.debug.xcconfig"; sourceTree = "<group>"; };
 		9D87D142A18D6F6916CB2FAC /* Pods_WhatsappClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatsappClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -124,6 +124,14 @@
 			path = Register;
 			sourceTree = "<group>";
 		};
+		6A8918D52C7EFFB60002E1F7 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6AC91F532C77A2E300A60476 /* Constan.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		6A9B6F8F2C762AE600614F5D = {
 			isa = PBXGroup;
 			children = (
@@ -146,7 +154,7 @@
 		6A9B6F9A2C762AE600614F5D /* WhatsappClone */ = {
 			isa = PBXGroup;
 			children = (
-				6AC91F4B2C77A16700A60476 /* Utils */,
+				6A8918D52C7EFFB60002E1F7 /* Utils */,
 				6A67AAE12C7752BA008F0100 /* Register */,
 				6A67AAC92C76F042008F0100 /* GoogleService-Info.plist */,
 				6A67AAC12C76DFF3008F0100 /* Helper */,
@@ -158,15 +166,6 @@
 				6A9B6FA92C762AE800614F5D /* Info.plist */,
 			);
 			path = WhatsappClone;
-			sourceTree = "<group>";
-		};
-		6AC91F4B2C77A16700A60476 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				6AC91F532C77A2E300A60476 /* Constan.swift */,
-			);
-			name = Utils;
-			path = Helper/Enum;
 			sourceTree = "<group>";
 		};
 		6AD5F2EE2C779CF70068DAE3 /* Recovered References */ = {
