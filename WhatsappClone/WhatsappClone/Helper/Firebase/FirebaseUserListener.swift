@@ -106,4 +106,16 @@ class FirebaseUserListener {
             completion(nil)
         }
     }
+    
+    // Mark: - Logout User
+    func logoutUser(completion: @escaping (_ error: Error) -> Void) {
+        do {
+            try Auth.auth().signOut()
+            
+            UserDefaults.standard.removeObject(forKey: keyCurrentUser)
+            UserDefaults.standard.synchronize()
+        } catch {
+            completion(error)
+        }
+    }
 }
