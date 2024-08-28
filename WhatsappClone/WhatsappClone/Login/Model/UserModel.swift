@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Firebase
 
 struct UserModel: Equatable, Codable {
     var id: String = ""
