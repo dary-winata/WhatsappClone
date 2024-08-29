@@ -18,12 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: scene)
-        
-        let tabBarVM: HomeTabbarViewModel = HomeTabbarViewModel()
-        let tabBarVC: HomeTabbarViewController = HomeTabbarViewController(viewModel: tabBarVM)
-        
-        let navigationController: UINavigationController = UINavigationController(rootViewController: tabBarVC)
-        navigationController.navigationBar.prefersLargeTitles = true
+        let viewModel: LoginViewModel = LoginViewModel()
+        let viewController: LoginViewController = LoginViewController(viewModel: viewModel)
+        let navigationController: UINavigationController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationController
         self.window = window
         window.makeKeyAndVisible()
