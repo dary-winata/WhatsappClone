@@ -205,6 +205,9 @@ extension LoginViewController: LoginViewModelDelegate {
     }
     
     func navigateToMainScreen() {
+        let homeBarVM: HomeTabbarViewModel = HomeTabbarViewModel()
+        let homeBarVC: HomeTabbarViewController = HomeTabbarViewController(viewModel: homeBarVM)
         
+        navigationController?.setViewControllers([homeBarVC], animated: true)
     }
 }

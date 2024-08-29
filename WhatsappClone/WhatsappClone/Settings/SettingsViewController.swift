@@ -53,13 +53,9 @@ class SettingsViewController: UIViewController {
     }
 }
 
-private extension SettingsViewController {
-
-}
-
 extension SettingsViewController: SettingsViewModelDelegate {
     func setupView() {
-        self.view.backgroundColor = .gray
+        self.view.backgroundColor = UIColor(redMax: 235, greenMax: 235, blueMax: 235, alphaMax: 1)
         
         let logoutView: UIView = UIView(frame: .zero)
         logoutView.translatesAutoresizingMaskIntoConstraints = false
@@ -90,5 +86,9 @@ extension SettingsViewController: SettingsViewModelDelegate {
             logoutButton.centerXAnchor.constraint(equalTo: logoutView.centerXAnchor),
             logoutButton.centerYAnchor.constraint(equalTo: logoutView.centerYAnchor)
         ])
+    }
+    
+    func setupUserView(username: String, status: String) {
+        userView.setupModel(username: username, status: status)
     }
 }

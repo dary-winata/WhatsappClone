@@ -23,7 +23,7 @@ class SettingsUserView: UIView {
     private lazy var usernameLabel: UILabel = {
         let label: UILabel = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        label.text = "Budi"
+//        label.text = "Budi"
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -32,7 +32,7 @@ class SettingsUserView: UIView {
     private lazy var userStatusLabel: UILabel = {
         let label: UILabel = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = "Chat Only"
+//        label.text = "Chat Only"
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -54,8 +54,9 @@ class SettingsUserView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupModel() {
-        
+    func setupModel(username: String, status: String) {
+        usernameLabel.text = username
+        userStatusLabel.text = status
     }
 }
 

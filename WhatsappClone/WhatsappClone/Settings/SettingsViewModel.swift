@@ -9,6 +9,7 @@ import Foundation
 
 protocol SettingsViewModelDelegate: AnyObject {
     func setupView()
+    func setupUserView(username: String, status: String)
 }
 
 protocol SettingsViewModelProtocol: AnyObject {
@@ -19,7 +20,18 @@ protocol SettingsViewModelProtocol: AnyObject {
 class SettingsViewModel: SettingsViewModelProtocol {
     var delegate: SettingsViewModelDelegate?
     
+    private var userData: UserModel?
+    
     func onViewDidLoad() {
         delegate?.setupView()
+        fetchCurrentUserData()
+    }
+}
+
+private extension SettingsViewModel {
+    func fetchCurrentUserData() {
+        guard let user = FirebaseHelper.getCurrentUser else {return}
+        
+        delegate?.setupUserView(username: user.username, status: user.status)
     }
 }

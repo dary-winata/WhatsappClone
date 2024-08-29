@@ -31,6 +31,7 @@ class LoginViewModel: LoginViewModelProtocol {
         FirebaseUserListener.shared.loginUser(email: email, password: password) { error, isEmailVerified in
             if error == nil {
                 self.delegate?.showProgressHudValue(with: "Login Success", isSuccess: true)
+                self.delegate?.navigateToMainScreen()
             } else {
                 self.delegate?.showProgressHudValue(with: "error login: \(error?.localizedDescription ?? "")", isSuccess: false)
             }
