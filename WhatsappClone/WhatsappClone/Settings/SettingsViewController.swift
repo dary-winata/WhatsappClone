@@ -11,6 +11,8 @@ class SettingsViewController: UIViewController {
     
     private lazy var userView: SettingsUserView = {
         let user: SettingsUserView = SettingsUserView(frame: .zero)
+        let gesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(editUserViewDidOnTapped))
+        user.addGestureRecognizer(gesture)
         user.translatesAutoresizingMaskIntoConstraints = false
         
         return user
@@ -29,6 +31,7 @@ class SettingsViewController: UIViewController {
         btn.titleLabel?.font = UIFont(name: "Mullish", size: 16)
         btn.backgroundColor = .clear
         btn.setTitleColor(.systemBlue, for: .normal)
+        btn.addTarget(self, action: #selector(logoutButtonDidTapped), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         
         return btn
@@ -50,6 +53,22 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.onViewDidLoad()
+    }
+}
+
+private extension SettingsViewController {
+    @objc
+    func editUserViewDidOnTapped() {
+        print("testing")
+        let editVM: EditProfileUserViewModel = EditProfileUserViewModel()
+        let editVC: EditProfileUserViewController = EditProfileUserViewController(viewModel: editVM)
+        
+        navigationController?.pushViewController(editVC, animated: true)
+    }
+    
+    @objc
+    func logoutButtonDidTapped() {
+        viewModel.onLogoutButtonDidTapped()
     }
 }
 
@@ -90,5 +109,12 @@ extension SettingsViewController: SettingsViewModelDelegate {
     
     func setupUserView(username: String, status: String) {
         userView.setupModel(username: username, status: status)
+    }
+    
+    func navigateToLoginView() {
+        let loginVM: LoginViewModel = LoginViewModel()
+        let loginVC: LoginViewController = LoginViewController(viewModel: loginVM)
+        
+        navigationController?.setViewControllers([loginVC], animated: true)
     }
 }

@@ -6,7 +6,8 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseAuth
+import FirebaseFirestoreInternal
 
 class FirebaseHelper {
     // Mark: - User

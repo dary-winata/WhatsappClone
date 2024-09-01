@@ -10,11 +10,13 @@ import Foundation
 protocol SettingsViewModelDelegate: AnyObject {
     func setupView()
     func setupUserView(username: String, status: String)
+    func navigateToLoginView()
 }
 
 protocol SettingsViewModelProtocol: AnyObject {
     var delegate: SettingsViewModelDelegate? {get set}
     func onViewDidLoad()
+    func onLogoutButtonDidTapped()
 }
 
 class SettingsViewModel: SettingsViewModelProtocol {
@@ -25,6 +27,16 @@ class SettingsViewModel: SettingsViewModelProtocol {
     func onViewDidLoad() {
         delegate?.setupView()
         fetchCurrentUserData()
+    }
+    
+    func onLogoutButtonDidTapped() {
+        FirebaseUserListener.shared.logoutUser { error in
+            if let error {
+                print(error)
+            } else {
+                self.delegate?.navigateToLoginView()
+            }
+        }
     }
 }
 

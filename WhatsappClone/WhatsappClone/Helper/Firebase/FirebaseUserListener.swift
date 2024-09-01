@@ -90,7 +90,7 @@ class FirebaseUserListener {
     // fun to save user to Firestore
     private func saveUserToFirestore(_ user: UserModel) {
         do {
-            try FirebaseHelper.FirebaseReference(.User).document().setData(from: user)
+            try FirebaseHelper.FirebaseReference(.User).document(user.id).setData(from: user)
         } catch {
             print("Error Saving user to firestore: \(error.localizedDescription)")
         }
@@ -108,12 +108,13 @@ class FirebaseUserListener {
     }
     
     // Mark: - Logout User
-    func logoutUser(completion: @escaping (_ error: Error) -> Void) {
+    func logoutUser(completion: @escaping (_ error: Error?) -> Void) {
         do {
             try Auth.auth().signOut()
             
             UserDefaults.standard.removeObject(forKey: keyCurrentUser)
             UserDefaults.standard.synchronize()
+            completion(nil)
         } catch {
             completion(error)
         }

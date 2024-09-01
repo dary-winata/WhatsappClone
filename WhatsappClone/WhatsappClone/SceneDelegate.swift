@@ -18,10 +18,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: scene)
-        let viewModel: LoginViewModel = LoginViewModel()
-        let viewController: LoginViewController = LoginViewController(viewModel: viewModel)
-        let navigationController: UINavigationController = UINavigationController(rootViewController: viewController)
-        window.rootViewController = navigationController
+        if FirebaseHelper.getCurrentUser == nil {
+            let viewModel: LoginViewModel = LoginViewModel()
+            let viewController: LoginViewController = LoginViewController(viewModel: viewModel)
+            let navigationController: UINavigationController = UINavigationController(rootViewController: viewController)
+            window.rootViewController = navigationController
+        } else {
+            let viewModel: HomeTabbarViewModel = HomeTabbarViewModel()
+            let viewController: HomeTabbarViewController = HomeTabbarViewController(viewModel: viewModel)
+            let navigationController: UINavigationController = UINavigationController(rootViewController: viewController)
+            window.rootViewController = navigationController
+        }
         self.window = window
         window.makeKeyAndVisible()
     }
