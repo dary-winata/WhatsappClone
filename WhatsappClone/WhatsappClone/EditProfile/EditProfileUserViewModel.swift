@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import YPImagePicker
 
 protocol EditProfileUserViewModelDelegate: AnyObject {
     func setupView()
     func clearNavigationBar()
+    func setupImageAvatar(with image: UIImage)
 }
 
 protocol EditProfileUserViewModelProtocol: AnyObject {
@@ -17,6 +19,7 @@ protocol EditProfileUserViewModelProtocol: AnyObject {
     func onViewDidLoad()
     func onSaveUserDidTapped(username: String)
     func checkLastUsername() -> String
+    func onEditProfileImageButtonDidTapped(_ picker: YPImagePicker)
 }
 
 class EditProfileUserViewModel: EditProfileUserViewModelProtocol {
@@ -36,6 +39,20 @@ class EditProfileUserViewModel: EditProfileUserViewModelProtocol {
             return username
         }
         return ""
+    }
+    
+    func onEditProfileImageButtonDidTapped(_ picker: YPImagePicker) {
+        picker.didFinishPicking { items, cancelled in
+            
+            
+            if let photo = items.singlePhoto {
+                DispatchQueue.main.async {
+                    self.delegate?.setupImageAvatar(with: photo.image)
+                }
+            }
+            
+            picker.dismiss(animated: true)
+        }
     }
 }
 

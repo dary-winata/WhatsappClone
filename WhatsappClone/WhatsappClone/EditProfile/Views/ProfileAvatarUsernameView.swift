@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import YPImagePicker
 
 protocol ProfileAvatarUsernameViewDelegate: AnyObject {
     func onUsernameTextFieldDidTapped()
     func onDoneTextFieldDidTapped(username: String) -> Bool
     func onEditUsernameTextView(text: String)
+    func onEditProfileButtonDidTapped(_ picker: YPImagePicker)
 }
 
 class ProfileAvatarUsernameView: UIView {
@@ -45,6 +47,7 @@ class ProfileAvatarUsernameView: UIView {
         button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.heightAnchor.constraint(equalToConstant: 22).isActive = true
+        button.addTarget(self, action: #selector(editProfileButtonDidTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -63,6 +66,16 @@ class ProfileAvatarUsernameView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
+    }()
+    
+    private lazy var imagePicker: YPImagePicker = {
+        var config: YPImagePickerConfiguration = YPImagePickerConfiguration()
+        config.showsPhotoFilters = false
+        config.library.maxNumberOfItems = 3
+        config.screens = [.library]
+        
+        let picker: YPImagePicker = YPImagePicker(configuration: config)
+        return picker
     }()
     
     weak var delegate: ProfileAvatarUsernameViewDelegate?
@@ -85,6 +98,10 @@ class ProfileAvatarUsernameView: UIView {
     func setupUsernameTextField(with text: String) {
         editUsernameTextView.text = text
     }
+    
+    func setupImageAvatarView(with image: UIImage) {
+        self.avatarPictureImageView.image = image
+    }
 }
 
 private extension ProfileAvatarUsernameView {
@@ -97,6 +114,11 @@ private extension ProfileAvatarUsernameView {
     func usernameTextFieldDidChanged() {
         guard let text = editUsernameTextView.text else {return}
         delegate?.onEditUsernameTextView(text: text)
+    }
+    
+    @objc
+    func editProfileButtonDidTapped() {
+        delegate?.onEditProfileButtonDidTapped(imagePicker)
     }
     
     func setupView() {

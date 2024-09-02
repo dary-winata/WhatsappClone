@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import YPImagePicker
 
 class EditProfileUserViewController: UIViewController {
     
@@ -76,6 +77,10 @@ extension EditProfileUserViewController: EditProfileUserViewModelDelegate {
             editStatusView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
+    
+    func setupImageAvatar(with image: UIImage) {
+        editProfileAvatarUsernameView.setupImageAvatarView(with: image)
+    }
 }
 
 extension EditProfileUserViewController: ProfileAvatarUsernameViewDelegate {
@@ -106,5 +111,10 @@ extension EditProfileUserViewController: ProfileAvatarUsernameViewDelegate {
         editProfileAvatarUsernameView.endEditing(true)
         navigationItem.rightBarButtonItem = nil
         navigationItem.leftBarButtonItem = currentLeftNavigationItem
+    }
+    
+    func onEditProfileButtonDidTapped(_ picker: YPImagePicker) {
+        viewModel.onEditProfileImageButtonDidTapped(picker)
+        present(picker, animated: true, completion: nil)
     }
 }
