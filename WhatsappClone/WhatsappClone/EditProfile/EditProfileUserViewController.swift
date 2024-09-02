@@ -47,20 +47,13 @@ class EditProfileUserViewController: UIViewController {
 private extension EditProfileUserViewController {
     @objc
     func saveEditUsernameDidTapped() {
-        print("saved")
-        clearNavigationBar()
+        viewModel.onSaveUserDidTapped(username: editProfileAvatarUsernameView.returnUsernameString())
     }
     
     @objc
     func cancleEditUsernameDidTapped() {
-        print("cancel")
+        editProfileAvatarUsernameView.setupUsernameTextField(with: viewModel.checkLastUsername())
         clearNavigationBar()
-    }
-    
-    func clearNavigationBar() {
-        editProfileAvatarUsernameView.endEditing(true)
-        navigationItem.rightBarButtonItem = nil
-        navigationItem.leftBarButtonItem = currentLeftNavigationItem
     }
 }
 
@@ -94,5 +87,24 @@ extension EditProfileUserViewController: ProfileAvatarUsernameViewDelegate {
         
         navigationItem.leftBarButtonItem = cancelButton
         navigationItem.rightBarButtonItem = saveButton
+    }
+    
+    func onDoneTextFieldDidTapped(username: String) -> Bool {
+        viewModel.onSaveUserDidTapped(username: username)
+        return true
+    }
+    
+    func onEditUsernameTextView(text: String) {
+        if text == "" {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        } else {
+            navigationItem.rightBarButtonItem?.isEnabled = true
+        }
+    }
+    
+    func clearNavigationBar() {
+        editProfileAvatarUsernameView.endEditing(true)
+        navigationItem.rightBarButtonItem = nil
+        navigationItem.leftBarButtonItem = currentLeftNavigationItem
     }
 }

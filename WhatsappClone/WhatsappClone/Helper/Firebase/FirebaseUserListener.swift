@@ -88,7 +88,7 @@ class FirebaseUserListener {
     }
     
     // fun to save user to Firestore
-    private func saveUserToFirestore(_ user: UserModel) {
+    func saveUserToFirestore(_ user: UserModel) {
         do {
             try FirebaseHelper.FirebaseReference(.User).document(user.id).setData(from: user)
         } catch {

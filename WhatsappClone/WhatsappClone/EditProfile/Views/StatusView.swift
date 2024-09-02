@@ -53,6 +53,7 @@ private extension StatusView {
         ])
         
         guard let status = FirebaseHelper.getCurrentUser?.status else {return}
+        setupStatus(status: status)
     }
     
     func setupStatus(status: String) {

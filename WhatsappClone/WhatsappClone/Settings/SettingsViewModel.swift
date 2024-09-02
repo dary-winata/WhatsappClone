@@ -17,6 +17,7 @@ protocol SettingsViewModelProtocol: AnyObject {
     var delegate: SettingsViewModelDelegate? {get set}
     func onViewDidLoad()
     func onLogoutButtonDidTapped()
+    func fetchCurrentUserData()
 }
 
 class SettingsViewModel: SettingsViewModelProtocol {
@@ -38,9 +39,7 @@ class SettingsViewModel: SettingsViewModelProtocol {
             }
         }
     }
-}
-
-private extension SettingsViewModel {
+    
     func fetchCurrentUserData() {
         guard let user = FirebaseHelper.getCurrentUser else {return}
         

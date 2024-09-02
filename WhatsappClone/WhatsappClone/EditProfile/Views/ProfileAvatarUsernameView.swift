@@ -9,6 +9,8 @@ import UIKit
 
 protocol ProfileAvatarUsernameViewDelegate: AnyObject {
     func onUsernameTextFieldDidTapped()
+    func onDoneTextFieldDidTapped(username: String) -> Bool
+    func onEditUsernameTextView(text: String)
 }
 
 class ProfileAvatarUsernameView: UIView {
@@ -55,6 +57,9 @@ class ProfileAvatarUsernameView: UIView {
         textField.delegate = self
         textField.resignFirstResponder()
         textField.selectedTextRange = nil
+        textField.returnKeyType = .done
+        textField.enablesReturnKeyAutomatically = true
+        textField.addTarget(self, action: #selector(usernameTextFieldDidChanged), for: .editingChanged)
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
@@ -70,12 +75,28 @@ class ProfileAvatarUsernameView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func returnUsernameString() -> String {
+        guard let text = editUsernameTextView.text else { return "" }
+        
+        return text
+    }
+    
+    func setupUsernameTextField(with text: String) {
+        editUsernameTextView.text = text
+    }
 }
 
 private extension ProfileAvatarUsernameView {
     @objc
     func usernameTextFieldDidTapped() {
         delegate?.onUsernameTextFieldDidTapped()
+    }
+    
+    @objc
+    func usernameTextFieldDidChanged() {
+        guard let text = editUsernameTextView.text else {return}
+        delegate?.onEditUsernameTextView(text: text)
     }
     
     func setupView() {
@@ -125,6 +146,7 @@ private extension ProfileAvatarUsernameView {
             
         }
         editUsernameTextView.text = user.username
+        editUsernameTextView.placeholder = user.username
     }
 }
 
@@ -132,4 +154,14 @@ extension ProfileAvatarUsernameView: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         delegate?.onUsernameTextFieldDidTapped()
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == editUsernameTextView {
+            guard let text = textField.text else {return false}
+            return delegate?.onDoneTextFieldDidTapped(username: text) ?? false
+        }
+        
+        return false
+    }
+    
 }

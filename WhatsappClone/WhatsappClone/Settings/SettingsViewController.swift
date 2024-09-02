@@ -53,6 +53,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.onViewDidLoad()
+        viewModel.fetchCurrentUserData()
     }
 }
 
