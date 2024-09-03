@@ -12,7 +12,6 @@ class SettingsUserView: UIView {
         let imageView: UIImageView = UIImageView(frame: .zero)
         imageView.layer.cornerRadius = 26
         imageView.layer.masksToBounds = true
-        imageView.image = UIImage(systemName: "person.circle.fill")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.heightAnchor.constraint(equalToConstant: 52).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 52).isActive = true
@@ -52,7 +51,12 @@ class SettingsUserView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupModel(username: String, status: String) {
+    func setupModel(image: UIImage?, username: String, status: String) {
+        if let image {
+            avatarImageView.image = image
+        } else {
+            avatarImageView.image = UIImage(systemName: "person.circle.fill")
+        }
         usernameLabel.text = username
         userStatusLabel.text = status
     }

@@ -97,10 +97,20 @@ class ProfileAvatarUsernameView: UIView {
     
     func setupUsernameTextField(with text: String) {
         editUsernameTextView.text = text
+        editUsernameTextView.placeholder = text
     }
     
-    func setupImageAvatarView(with image: UIImage) {
-        self.avatarPictureImageView.image = image
+    func setupImageAvatarView(with image: UIImage?) {
+        if image == nil {
+            avatarPictureImageView.image = UIImage(systemName: "person.circle.fill")
+        } else {
+            avatarPictureImageView.image = image
+        }
+    }
+    
+    func setupProfile(avatar: UIImage?, username: String) {
+        editUsernameTextView.text = username
+        editUsernameTextView.placeholder = username
     }
 }
 
@@ -156,19 +166,6 @@ private extension ProfileAvatarUsernameView {
             
             heightAnchor.constraint(equalToConstant: 140)
         ])
-        
-        guard let user = FirebaseHelper.getCurrentUser else {return}
-        setupProfile(user: user)
-    }
-    
-    func setupProfile(user: UserModel) {
-        if user.avatar.isEmpty {
-            avatarPictureImageView.image = UIImage(systemName: "person.fill")
-        } else {
-            
-        }
-        editUsernameTextView.text = user.username
-        editUsernameTextView.placeholder = user.username
     }
 }
 

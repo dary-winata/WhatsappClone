@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 protocol SettingsViewModelDelegate: AnyObject {
     func setupView()
-    func setupUserView(username: String, status: String)
+    func setupUserView(image: UIImage?,username: String, status: String)
     func navigateToLoginView()
 }
 
@@ -43,6 +44,8 @@ class SettingsViewModel: SettingsViewModelProtocol {
     func fetchCurrentUserData() {
         guard let user = FirebaseHelper.getCurrentUser else {return}
         
-        delegate?.setupUserView(username: user.username, status: user.status)
+        FirebaseStorageHelper.downloadImage(url: user.avatar) { image in
+            self.delegate?.setupUserView(image: image, username: user.username, status: user.status)
+        }
     }
 }

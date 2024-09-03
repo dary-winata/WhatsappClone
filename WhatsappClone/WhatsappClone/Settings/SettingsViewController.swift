@@ -60,7 +60,6 @@ class SettingsViewController: UIViewController {
 private extension SettingsViewController {
     @objc
     func editUserViewDidOnTapped() {
-        print("testing")
         let editVM: EditProfileUserViewModel = EditProfileUserViewModel()
         let editVC: EditProfileUserViewController = EditProfileUserViewController(viewModel: editVM)
         
@@ -108,8 +107,8 @@ extension SettingsViewController: SettingsViewModelDelegate {
         ])
     }
     
-    func setupUserView(username: String, status: String) {
-        userView.setupModel(username: username, status: status)
+    func setupUserView(image: UIImage?,username: String, status: String) {
+        userView.setupModel(image: image, username: username, status: status)
     }
     
     func navigateToLoginView() {

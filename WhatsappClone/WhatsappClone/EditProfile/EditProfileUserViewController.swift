@@ -5,6 +5,7 @@
 //  Created by dary winata nugraha djati on 29/08/24.
 //
 
+import ProgressHUD
 import UIKit
 import YPImagePicker
 
@@ -76,10 +77,16 @@ extension EditProfileUserViewController: EditProfileUserViewModelDelegate {
             editStatusView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             editStatusView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+        
+        viewModel.getProfiledataForAvatarUsername()
     }
     
-    func setupImageAvatar(with image: UIImage) {
+    func setupImageAvatar(with image: UIImage?) {
         editProfileAvatarUsernameView.setupImageAvatarView(with: image)
+    }
+    
+    func setupUsername(with text: String) {
+        editProfileAvatarUsernameView.setupUsernameTextField(with: text)
     }
 }
 
@@ -116,5 +123,10 @@ extension EditProfileUserViewController: ProfileAvatarUsernameViewDelegate {
     func onEditProfileButtonDidTapped(_ picker: YPImagePicker) {
         viewModel.onEditProfileImageButtonDidTapped(picker)
         present(picker, animated: true, completion: nil)
+    }
+    
+    func showProgressStatus(with value: CGFloat) {
+        ProgressHUD.dismiss()
+        ProgressHUD.progress(value)
     }
 }
