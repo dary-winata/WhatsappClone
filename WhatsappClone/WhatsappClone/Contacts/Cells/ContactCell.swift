@@ -1,13 +1,13 @@
 //
-//  ContactListCell.swift
+//  ContactCell.swift
 //  WhatsappClone
 //
-//  Created by dary winata nugraha djati on 03/09/24.
+//  Created by dary winata nugraha djati on 04/09/24.
 //
 
 import UIKit
 
-class ContactListCell: UICollectionViewCell {
+class ContactCell: UITableViewCell {
     private lazy var profileImageView: UIImageView = {
         let imageView: UIImageView = UIImageView(frame: .zero)
         imageView.heightAnchor.constraint(equalToConstant: 52).isActive = true
@@ -44,8 +44,8 @@ class ContactListCell: UICollectionViewCell {
         return imageView
     }()
         
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
     }
     
@@ -71,7 +71,7 @@ class ContactListCell: UICollectionViewCell {
     }
 }
 
-private extension ContactListCell {
+private extension ContactCell {
     func setupView() {
         let separator: UIView = UIView(frame: .zero)
         separator.translatesAutoresizingMaskIntoConstraints = false

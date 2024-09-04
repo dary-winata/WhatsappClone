@@ -8,25 +8,30 @@
 import UIKit
 
 class ContactsViewController: UIViewController {
-    
-//    private lazy var searchTextField: UISearchTextField = {
-//        let searchTF: UISearchTextField = UISearchTextField(frame: .zero)
-//        searchTF.placeholder = "Search"
-//        searchTF.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        return searchTF
-//    }()
-    
-    private lazy var contactListCell: UICollectionView = {
-        let cellFlow: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        cellFlow.minimumLineSpacing = 16
-        let cellView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: cellFlow)
-        cellView.translatesAutoresizingMaskIntoConstraints = false
-        cellView.dataSource = self
-        cellView.delegate = self
-        cellView.register(ContactListCell.self, forCellWithReuseIdentifier: "contact_list")
+    private lazy var contactListCell: UITableView = {
+        let tableView: UITableView = UITableView(frame: .zero)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.separatorColor = .clear
+        tableView.delegate = self
+        tableView.register(ContactCell.self, forCellReuseIdentifier: "contact_list")
         
-        return cellView
+        return tableView
+    }()
+    
+    private lazy var searchBarController: UISearchController = {
+        let searchVC: UISearchController = UISearchController(searchResultsController: nil)
+        searchVC.obscuresBackgroundDuringPresentation = false
+        searchVC.searchBar.placeholder = "Search Contact"
+        searchVC.searchResultsUpdater = self
+        
+        return searchVC
+    }()
+    
+    private lazy var refresherController: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        
+        return refresh
     }()
     
     let viewModel: ContactsViewModel
@@ -47,6 +52,10 @@ class ContactsViewController: UIViewController {
     }
 }
 
+private extension ContactsViewController {
+    
+}
+
 extension ContactsViewController: ContactsViewModelDelegate {
     func setupView() {
         view.backgroundColor = .white
@@ -61,34 +70,45 @@ extension ContactsViewController: ContactsViewModelDelegate {
         ])
     }
     
+    func setupSearchView() {
+        contactListCell.tableHeaderView = searchBarController.searchBar
+//        self.navigationItem.searchController = searchBarController
+//        navigationItem.hidesSearchBarWhenScrolling = false
+        contactListCell.refreshControl = refresherController
+        definesPresentationContext = true
+    }
+    
     func reloadCell() {
         self.contactListCell.reloadData()
     }
 }
 
-extension ContactsViewController: ContactListCellDelegate {
-    func stringToAvatar(_ avatar: String) {
-        
-    }
-}
-
-extension ContactsViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.getContactData().count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = contactListCell.dequeueReusableCell(withReuseIdentifier: "contact_list", for: indexPath) as? ContactListCell else {
-            return UICollectionViewCell()
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let table = tableView.dequeueReusableCell(withIdentifier: "contact_list", for: indexPath) as? ContactCell else {
+            return UITableViewCell()
         }
         
-        cell.delegate = self
-        cell.setupData(viewModel.getContactData()[indexPath.row])
+        table.setupData(viewModel.getContactData()[indexPath.row])
         
-        return cell
+        return table
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: UIScreen.main.bounds.width, height: ContactListCell.getHeight())
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if refresherController.isRefreshing {
+            viewModel.setupListCell()
+            refresherController.endRefreshing()
+        }
+    }
+}
+
+extension ContactsViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        viewModel.updateSearchFiltered(searchController.searchBar.text ?? "")
+        reloadCell()
     }
 }

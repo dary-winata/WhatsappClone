@@ -10,13 +10,16 @@ import UIKit
 
 protocol ContactsViewModelDelegate: AnyObject {
     func setupView()
+    func setupSearchView()
     func reloadCell()
 }
 
 protocol ContactsViewModelProtocol: AnyObject {
     var delegate: ContactsViewModelDelegate? {get set}
     func onViewDidLoad()
+    func updateSearchFiltered(_ text: String)
     func getContactData() -> [ContactListCellModel]
+    func setupListCell()
 }
 
 class ContactsViewModel: ContactsViewModelProtocol {
@@ -24,17 +27,26 @@ class ContactsViewModel: ContactsViewModelProtocol {
     
     private var contactList: [ContactListCellModel] = []
     
+    private var filteredList: [ContactListCellModel] = []
+    
     func onViewDidLoad() {
         delegate?.setupView()
         setupListCell()
+        delegate?.setupSearchView()
     }
     
     func getContactData() -> [ContactListCellModel] {
-        return contactList
+        return filteredList
     }
-}
-
-private extension ContactsViewModel {
+    
+    func updateSearchFiltered(_ text: String) {
+        if text == "" {
+            filteredList = contactList
+        } else {
+            filteredList = contactList.filter({$0.username.lowercased().contains(text)})
+        }
+    }
+    
     func setupListCell() {
         FirebaseUserListener.shared.getAllUserFromFirestore { users in
             self.userModelToContactListCellModel(users)
@@ -42,6 +54,9 @@ private extension ContactsViewModel {
             self.delegate?.reloadCell()
         }
     }
+}
+
+private extension ContactsViewModel {
     
     func userModelToContactListCellModel(_ users: [UserModel]) {
         var contactList: [ContactListCellModel] = []
@@ -54,5 +69,6 @@ private extension ContactsViewModel {
         }
         
         self.contactList = contactList
+        self.filteredList = contactList
     }
 }
