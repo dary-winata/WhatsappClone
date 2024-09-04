@@ -14,6 +14,8 @@
 		6A1DE5392C8324140053E477 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE5382C8324140053E477 /* StatusView.swift */; };
 		6A1DE53B2C85D0D30053E477 /* FirebaseStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE53A2C85D0D30053E477 /* FirebaseStorageHelper.swift */; };
 		6A1DE53D2C86C2FB0053E477 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE53C2C86C2FB0053E477 /* Util.swift */; };
+		6A1DE5402C873AAB0053E477 /* ContactListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE53F2C873AAB0053E477 /* ContactListCell.swift */; };
+		6A1DE5432C883C030053E477 /* ContactListCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE5422C883C030053E477 /* ContactListCellModel.swift */; };
 		6A67AABE2C764B5F008F0100 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AABD2C764B5F008F0100 /* LoginViewController.swift */; };
 		6A67AAC02C764B98008F0100 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AABF2C764B98008F0100 /* LoginViewModel.swift */; };
 		6A67AAC32C76E019008F0100 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AAC22C76E019008F0100 /* UIColor+Extension.swift */; };
@@ -49,6 +51,8 @@
 		6A1DE5382C8324140053E477 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		6A1DE53A2C85D0D30053E477 /* FirebaseStorageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageHelper.swift; sourceTree = "<group>"; };
 		6A1DE53C2C86C2FB0053E477 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		6A1DE53F2C873AAB0053E477 /* ContactListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListCell.swift; sourceTree = "<group>"; };
+		6A1DE5422C883C030053E477 /* ContactListCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListCellModel.swift; sourceTree = "<group>"; };
 		6A67AABD2C764B5F008F0100 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6A67AABF2C764B98008F0100 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6A67AAC22C76E019008F0100 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -119,6 +123,22 @@
 				6A1DE5382C8324140053E477 /* StatusView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		6A1DE53E2C8734BC0053E477 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				6A1DE53F2C873AAB0053E477 /* ContactListCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		6A1DE5412C883BF40053E477 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6A1DE5422C883C030053E477 /* ContactListCellModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		6A67AABC2C764B07008F0100 /* Login */ = {
@@ -275,6 +295,8 @@
 		6AFF6A442C7980D600D59FB0 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
+				6A1DE5412C883BF40053E477 /* Model */,
+				6A1DE53E2C8734BC0053E477 /* Cells */,
 				6AFF6A452C7980E400D59FB0 /* ContactsViewController.swift */,
 				6A7D1C352C7B87B700F1F6D0 /* ContactsViewModel.swift */,
 			);
@@ -410,10 +432,12 @@
 				6A1DE5312C814FDC0053E477 /* EditProfileUserViewModel.swift in Sources */,
 				6A67AAE32C7752C9008F0100 /* RegisterViewModel.swift in Sources */,
 				6A67AAE52C7752D2008F0100 /* RegisterViewController.swift in Sources */,
+				6A1DE5402C873AAB0053E477 /* ContactListCell.swift in Sources */,
 				6A1DE53D2C86C2FB0053E477 /* Util.swift in Sources */,
 				6A67AABE2C764B5F008F0100 /* LoginViewController.swift in Sources */,
 				6A9B6F9C2C762AE600614F5D /* AppDelegate.swift in Sources */,
 				6A7D1C322C7985E800F1F6D0 /* HomeTabbarViewController.swift in Sources */,
+				6A1DE5432C883C030053E477 /* ContactListCellModel.swift in Sources */,
 				6A7D1C342C7985F400F1F6D0 /* HomeTabbarViewModel.swift in Sources */,
 				6A1DE5372C82DE0A0053E477 /* ProfileAvatarUsernameView.swift in Sources */,
 				6A8918BF2C7D916A0002E1F7 /* ShareLogoutUserView.swift in Sources */,
