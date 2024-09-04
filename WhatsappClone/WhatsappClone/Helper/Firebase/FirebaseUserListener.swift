@@ -94,7 +94,26 @@ class FirebaseUserListener {
         } catch {
             print("Error Saving user to firestore: \(error.localizedDescription)")
         }
-    }    
+    }
+    
+    // Geting all user from firestore except self user
+    func getAllUserFromFirestore(completion: @escaping (_ users: [UserModel]) -> Void) {
+        var users: [UserModel] = []
+        let currentIdUser : String = FirebaseHelper.getCurrentId
+        FirebaseHelper.FirebaseReference(.User).limit(to: 100).getDocuments { snapshot, err in
+            guard let document = snapshot?.documents else {return}
+            
+            let allUser = document.compactMap { querySnapshot in
+                return try? querySnapshot.data(as: UserModel.self)
+            }
+            
+            users = allUser.filter({ value in
+                value.id != currentIdUser
+            })
+            completion(users)
+        }
+    }
+    
     // Mark: - Reset Password
     func resetPassword(email: String, completion: @escaping (_ error: Error?) -> Void) {
         Auth.auth().sendPasswordReset(withEmail: email) { err in

@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ContactsViewModelDelegate: AnyObject {
     func setupView()
+    func reloadCell()
 }
 
 protocol ContactsViewModelProtocol: AnyObject {
@@ -34,6 +36,23 @@ class ContactsViewModel: ContactsViewModelProtocol {
 
 private extension ContactsViewModel {
     func setupListCell() {
+        FirebaseUserListener.shared.getAllUserFromFirestore { users in
+            self.userModelToContactListCellModel(users)
+            
+            self.delegate?.reloadCell()
+        }
+    }
+    
+    func userModelToContactListCellModel(_ users: [UserModel]) {
+        var contactList: [ContactListCellModel] = []
         
+        for user in users {
+            let contact: ContactListCellModel = ContactListCellModel(avatar: user.avatar,
+                                                                     username: user.username,
+                                                                     status: user.status)
+            contactList.append(contact)
+        }
+        
+        self.contactList = contactList
     }
 }

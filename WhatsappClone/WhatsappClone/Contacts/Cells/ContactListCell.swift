@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ContactListCellDelegate: AnyObject {
+    func stringToAvatar(_ avatar: String)
+}
+
 class ContactListCell: UICollectionViewCell {
     private lazy var profileImageView: UIImageView = {
         let imageView: UIImageView = UIImageView(frame: .zero)
@@ -44,6 +48,8 @@ class ContactListCell: UICollectionViewCell {
         return imageView
     }()
     
+    var delegate: ContactListCellDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -60,6 +66,14 @@ class ContactListCell: UICollectionViewCell {
     func setupData(_ user: ContactListCellModel) {
         self.usernameLabel.text = user.username
         self.statusLabel.text = user.status
+        
+        FirebaseStorageHelper.downloadImage(url: user.avatar) { image in
+            if let image {
+                self.profileImageView.image = image
+            } else {
+                self.profileImageView.image = UIImage(systemName: "person.circle.fill")
+            }
+        }
     }
 }
 

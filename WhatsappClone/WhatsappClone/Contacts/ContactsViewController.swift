@@ -60,11 +60,21 @@ extension ContactsViewController: ContactsViewModelDelegate {
             contactListCell.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
+    func reloadCell() {
+        self.contactListCell.reloadData()
+    }
+}
+
+extension ContactsViewController: ContactListCellDelegate {
+    func stringToAvatar(_ avatar: String) {
+        
+    }
 }
 
 extension ContactsViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        20
+        viewModel.getContactData().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -72,8 +82,8 @@ extension ContactsViewController: UICollectionViewDelegateFlowLayout, UICollecti
             return UICollectionViewCell()
         }
         
-//        cell.setupData(viewModel.getContactData()[indexPath.row])
-        cell.setupData(ContactListCellModel(avatar: "", username: "Suparman", status: "Baik"))
+        cell.delegate = self
+        cell.setupData(viewModel.getContactData()[indexPath.row])
         
         return cell
     }
