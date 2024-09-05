@@ -13,7 +13,6 @@ class ProfileViewController: UIViewController {
     private lazy var profileAvatarImage: UIImageView = {
         let image: UIImageView = UIImageView(frame: .zero)
         image.layer.cornerRadius = 50
-        image.image = UIImage(systemName: "person.circle.fill")
         image.contentMode = .scaleAspectFill
         image.layer.masksToBounds = true
         image.heightAnchor.constraint(equalToConstant: 100).isActive = true
@@ -25,7 +24,6 @@ class ProfileViewController: UIViewController {
     
     private lazy var profileUsernameLabel: UILabel = {
         let label: UILabel = UILabel(frame: .zero)
-        label.text = "NAMAAA"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +33,6 @@ class ProfileViewController: UIViewController {
     
     private lazy var statusLabel: UILabel = {
         let label: UILabel = UILabel(frame: .zero)
-        label.text = "Status"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -96,5 +93,18 @@ extension ProfileViewController: ProfileViewModelDelegate {
             goToMessageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 //            goToMessageView.bottomAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
+    }
+    
+    func setupProfile(_ user: UserModel) {
+        profileUsernameLabel.text = user.username
+        statusLabel.text = user.status
+        
+        if user.avatar == "" {
+            profileAvatarImage.image = UIImage(systemName: "person.circle.fill")
+        } else {
+            FirebaseStorageHelper.downloadImage(url: user.avatar) { image in
+                self.profileAvatarImage.image = image
+            }
+        }
     }
 }

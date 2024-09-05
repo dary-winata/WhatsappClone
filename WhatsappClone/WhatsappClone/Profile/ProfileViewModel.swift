@@ -9,6 +9,7 @@ import Foundation
 
 protocol ProfileViewModelDelegate: AnyObject {
     func setupView()
+    func setupProfile(_ user: UserModel)
 }
 
 protocol ProfileViewModelProtocol: AnyObject {
@@ -27,5 +28,6 @@ class ProfileViewModel: ProfileViewModelProtocol {
     
     func onViewDidLoad() {
         self.delegate?.setupView()
+        delegate?.setupProfile(user)
     }
 }
