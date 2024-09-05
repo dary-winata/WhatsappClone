@@ -12,6 +12,7 @@ protocol ContactsViewModelDelegate: AnyObject {
     func setupView()
     func setupSearchView()
     func reloadCell()
+    func navigateToProfile(_ user: UserModel)
 }
 
 protocol ContactsViewModelProtocol: AnyObject {
@@ -20,6 +21,7 @@ protocol ContactsViewModelProtocol: AnyObject {
     func updateSearchFiltered(_ text: String)
     func getContactData() -> [ContactListCellModel]
     func setupListCell()
+    func onContactDidTapped(_ idx: Int)
 }
 
 class ContactsViewModel: ContactsViewModelProtocol {
@@ -54,15 +56,21 @@ class ContactsViewModel: ContactsViewModelProtocol {
             self.delegate?.reloadCell()
         }
     }
+    
+    func onContactDidTapped(_ idx: Int) {
+        FirebaseUserListener.shared.getUserFromFirestorById(filteredList[idx].id) { user in
+            self.delegate?.navigateToProfile(user)
+        }
+    }
 }
 
 private extension ContactsViewModel {
-    
     func userModelToContactListCellModel(_ users: [UserModel]) {
         var contactList: [ContactListCellModel] = []
         
         for user in users {
-            let contact: ContactListCellModel = ContactListCellModel(avatar: user.avatar,
+            let contact: ContactListCellModel = ContactListCellModel(id: user.id,
+                                                                     avatar: user.avatar,
                                                                      username: user.username,
                                                                      status: user.status)
             contactList.append(contact)

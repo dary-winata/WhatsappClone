@@ -34,7 +34,7 @@ class ContactsViewController: UIViewController {
         return refresh
     }()
     
-    let viewModel: ContactsViewModel
+    let viewModel: ContactsViewModelProtocol
     
     init(viewModel: ContactsViewModel) {
         self.viewModel = viewModel
@@ -50,10 +50,6 @@ class ContactsViewController: UIViewController {
         super.viewDidLoad()
         viewModel.onViewDidLoad()
     }
-}
-
-private extension ContactsViewController {
-    
 }
 
 extension ContactsViewController: ContactsViewModelDelegate {
@@ -81,6 +77,13 @@ extension ContactsViewController: ContactsViewModelDelegate {
     func reloadCell() {
         self.contactListCell.reloadData()
     }
+    
+    func navigateToProfile(_ user: UserModel) {
+        let profileVM = ProfileViewModel(user: user)
+        let profileVC = ProfileViewController(viewModel: profileVM)
+        
+        navigationController?.pushViewController(profileVC, animated: true)
+    }
 }
 
 extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -103,6 +106,10 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
             viewModel.setupListCell()
             refresherController.endRefreshing()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.onContactDidTapped(indexPath.row)
     }
 }
 

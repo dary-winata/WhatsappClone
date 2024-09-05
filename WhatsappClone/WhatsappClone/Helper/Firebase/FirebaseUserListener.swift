@@ -114,6 +114,16 @@ class FirebaseUserListener {
         }
     }
     
+    // Getting user with id from firestore
+    func getUserFromFirestorById(_ id: String, completion: @escaping (_ user: UserModel) -> Void) {
+        FirebaseHelper.FirebaseReference(.User).document(id).getDocument { snapshot, err in
+            guard let user = snapshot else {return}
+            
+            guard let decriptedUser = try? user.data(as: UserModel.self) else {return}
+            completion(decriptedUser)
+        }
+    }
+    
     // Mark: - Reset Password
     func resetPassword(email: String, completion: @escaping (_ error: Error?) -> Void) {
         Auth.auth().sendPasswordReset(withEmail: email) { err in

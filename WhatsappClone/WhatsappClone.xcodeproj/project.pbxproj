@@ -14,9 +14,11 @@
 		6A1DE5392C8324140053E477 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE5382C8324140053E477 /* StatusView.swift */; };
 		6A1DE53B2C85D0D30053E477 /* FirebaseStorageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE53A2C85D0D30053E477 /* FirebaseStorageHelper.swift */; };
 		6A1DE53D2C86C2FB0053E477 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE53C2C86C2FB0053E477 /* Util.swift */; };
-		6A1DE5402C873AAB0053E477 /* ContactListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE53F2C873AAB0053E477 /* ContactListCell.swift */; };
 		6A1DE5432C883C030053E477 /* ContactListCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE5422C883C030053E477 /* ContactListCellModel.swift */; };
 		6A1DE5452C888F8E0053E477 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE5442C888F8E0053E477 /* ContactCell.swift */; };
+		6A1DE5492C88C9B30053E477 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE5482C88C9B30053E477 /* ProfileViewController.swift */; };
+		6A1DE54B2C88C9BE0053E477 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE54A2C88C9BE0053E477 /* ProfileViewModel.swift */; };
+		6A1DE54E2C88D3730053E477 /* ProfileSendMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1DE54D2C88D3730053E477 /* ProfileSendMessageView.swift */; };
 		6A67AABE2C764B5F008F0100 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AABD2C764B5F008F0100 /* LoginViewController.swift */; };
 		6A67AAC02C764B98008F0100 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AABF2C764B98008F0100 /* LoginViewModel.swift */; };
 		6A67AAC32C76E019008F0100 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AAC22C76E019008F0100 /* UIColor+Extension.swift */; };
@@ -52,9 +54,11 @@
 		6A1DE5382C8324140053E477 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		6A1DE53A2C85D0D30053E477 /* FirebaseStorageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageHelper.swift; sourceTree = "<group>"; };
 		6A1DE53C2C86C2FB0053E477 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
-		6A1DE53F2C873AAB0053E477 /* ContactListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListCell.swift; sourceTree = "<group>"; };
 		6A1DE5422C883C030053E477 /* ContactListCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactListCellModel.swift; sourceTree = "<group>"; };
 		6A1DE5442C888F8E0053E477 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
+		6A1DE5482C88C9B30053E477 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		6A1DE54A2C88C9BE0053E477 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		6A1DE54D2C88D3730053E477 /* ProfileSendMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSendMessageView.swift; sourceTree = "<group>"; };
 		6A67AABD2C764B5F008F0100 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6A67AABF2C764B98008F0100 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6A67AAC22C76E019008F0100 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -130,7 +134,6 @@
 		6A1DE53E2C8734BC0053E477 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				6A1DE53F2C873AAB0053E477 /* ContactListCell.swift */,
 				6A1DE5442C888F8E0053E477 /* ContactCell.swift */,
 			);
 			path = Cells;
@@ -142,6 +145,24 @@
 				6A1DE5422C883C030053E477 /* ContactListCellModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		6A1DE5472C88C98B0053E477 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				6A1DE54C2C88D34B0053E477 /* Views */,
+				6A1DE5482C88C9B30053E477 /* ProfileViewController.swift */,
+				6A1DE54A2C88C9BE0053E477 /* ProfileViewModel.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		6A1DE54C2C88D34B0053E477 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6A1DE54D2C88D3730053E477 /* ProfileSendMessageView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		6A67AABC2C764B07008F0100 /* Login */ = {
@@ -257,6 +278,7 @@
 		6A9B6F9A2C762AE600614F5D /* WhatsappClone */ = {
 			isa = PBXGroup;
 			children = (
+				6A1DE5472C88C98B0053E477 /* Profile */,
 				6A1DE52D2C80DA220053E477 /* EditProfile */,
 				6A7D1C302C7985C000F1F6D0 /* Tabbar */,
 				6A7D1C2B2C79850800F1F6D0 /* Settings */,
@@ -433,9 +455,10 @@
 				6A67AACE2C76F466008F0100 /* FirebaseHelper.swift in Sources */,
 				6A67AAC02C764B98008F0100 /* LoginViewModel.swift in Sources */,
 				6A1DE5312C814FDC0053E477 /* EditProfileUserViewModel.swift in Sources */,
+				6A1DE54E2C88D3730053E477 /* ProfileSendMessageView.swift in Sources */,
 				6A67AAE32C7752C9008F0100 /* RegisterViewModel.swift in Sources */,
 				6A67AAE52C7752D2008F0100 /* RegisterViewController.swift in Sources */,
-				6A1DE5402C873AAB0053E477 /* ContactListCell.swift in Sources */,
+				6A1DE5492C88C9B30053E477 /* ProfileViewController.swift in Sources */,
 				6A1DE53D2C86C2FB0053E477 /* Util.swift in Sources */,
 				6A67AABE2C764B5F008F0100 /* LoginViewController.swift in Sources */,
 				6A9B6F9C2C762AE600614F5D /* AppDelegate.swift in Sources */,
@@ -458,6 +481,7 @@
 				6AD5F2EF2C779DB80068DAE3 /* FirebaseHelper.swift in Sources */,
 				6A1DE52F2C80DA8D0053E477 /* EditProfileUserViewController.swift in Sources */,
 				6AC91F542C77A2E300A60476 /* Constant.swift in Sources */,
+				6A1DE54B2C88C9BE0053E477 /* ProfileViewModel.swift in Sources */,
 				6AC91F552C77A2E900A60476 /* UserModel.swift in Sources */,
 				6A67AAC32C76E019008F0100 /* UIColor+Extension.swift in Sources */,
 				6A67AAD82C76FACF008F0100 /* FirebaseUserListener.swift in Sources */,

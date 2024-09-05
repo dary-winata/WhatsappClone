@@ -8,6 +8,7 @@
 import Foundation
 
 struct ContactListCellModel {
+    let id: String
     let avatar: String
     let username: String
     let status: String
