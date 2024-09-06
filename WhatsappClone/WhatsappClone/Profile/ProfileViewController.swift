@@ -42,6 +42,8 @@ class ProfileViewController: UIViewController {
     
     private lazy var goToMessageView: ProfileSendMessageView = {
         let viewMessage: ProfileSendMessageView = ProfileSendMessageView(frame: .zero)
+        let gestureTap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(goToMessageViewDidTapped))
+        viewMessage.addGestureRecognizer(gestureTap)
         viewMessage.translatesAutoresizingMaskIntoConstraints = false
         
         return viewMessage
@@ -62,6 +64,16 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.onViewDidLoad()
+    }
+}
+
+private extension ProfileViewController {
+    @objc
+    func goToMessageViewDidTapped() {
+        guard let currentUser = FirebaseHelper.getCurrentUser else {return}
+        let recieverUser = viewModel.getUser()
+        
+        let recentChat = FirebaseRecentChatHelper.shared.startChat(user1: currentUser, user2: recieverUser)
     }
 }
 

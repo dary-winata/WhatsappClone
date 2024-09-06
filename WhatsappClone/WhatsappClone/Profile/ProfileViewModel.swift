@@ -15,6 +15,7 @@ protocol ProfileViewModelDelegate: AnyObject {
 protocol ProfileViewModelProtocol: AnyObject {
     var delegate: ProfileViewModelDelegate? {get set}
     func onViewDidLoad()
+    func getUser() -> UserModel
 }
 
 class ProfileViewModel: ProfileViewModelProtocol {
@@ -29,5 +30,9 @@ class ProfileViewModel: ProfileViewModelProtocol {
     func onViewDidLoad() {
         self.delegate?.setupView()
         delegate?.setupProfile(user)
+    }
+    
+    func getUser() -> UserModel {
+        return user
     }
 }

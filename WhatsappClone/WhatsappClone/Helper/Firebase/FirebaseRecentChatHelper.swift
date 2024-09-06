@@ -9,13 +9,21 @@ import Foundation
 import Firebase
 
 class FirebaseRecentChatHelper {
-    static func startChat(user1: UserModel, user2: UserModel) -> String {
+    static let shared = FirebaseRecentChatHelper()
+    
+    private init() {}
+    
+    func startChat(user1: UserModel, user2: UserModel) -> String {
         let roomId = getChatRoomId(user1Id: user1.id, user2Id: user2.id)
+        
+        print("creating room id: ", roomId)
+        
+        createRecentChatItem(roomId: roomId, users: [user1, user2])
         
         return roomId
     }
     
-    static func createRecentChatItem(roomId: String, users: [UserModel]) {
+    func createRecentChatItem(roomId: String, users: [UserModel]) {
         if users.isEmpty {
             return
         }
@@ -29,14 +37,15 @@ class FirebaseRecentChatHelper {
             
             if !snapshotQuery.isEmpty {
                 // Remove user who has recent chat
-                memberIdsToCreateRecentChat = removeUserWhoHasRecentChat(snapshot: snapshotQuery, memberIds: memberIdsToCreateRecentChat)
+                memberIdsToCreateRecentChat = self.removeUserWhoHasRecentChat(snapshot: snapshotQuery, memberIds: memberIdsToCreateRecentChat)
             }
             
             guard let currentUser = FirebaseHelper.getCurrentUser else {return}
             for id in memberIdsToCreateRecentChat {
-                let senderUser = id == currentUser.id ? currentUser : getRecieverUser(user: users)
+                print("Creating recent chat for id \(id)")
+                let senderUser = id == currentUser.id ? currentUser : self.getRecieverUser(user: users)
                 
-                let recieverUser = id != currentUser.id ? currentUser : getRecieverUser(user: users)
+                let recieverUser = id != currentUser.id ? currentUser : self.getRecieverUser(user: users)
                 
                 let recentChat = RecentMessageModel(id: UUID().uuidString, chatRoomId: roomId, senderId: senderUser.id, senderName: senderUser.username, recieverId: recieverUser.id, recieverName: recieverUser.username, date: Date(), lastMessage: "", avatar: recieverUser.avatar, unreadCounter: 0)
                 
@@ -46,12 +55,12 @@ class FirebaseRecentChatHelper {
         }
     }
     
-    static func getChatRoomId(user1Id: String, user2Id: String) -> String {
+    func getChatRoomId(user1Id: String, user2Id: String) -> String {
         let value = user1Id.compare(user2Id).rawValue
         return value < 0 ? (user1Id + user2Id) : (user2Id + user1Id)
     }
     
-    static func removeUserWhoHasRecentChat(snapshot: QuerySnapshot, memberIds: [String]) -> [String] {
+    func removeUserWhoHasRecentChat(snapshot: QuerySnapshot, memberIds: [String]) -> [String] {
         var membersIdsToCreateRecentChat = memberIds
         
         for data in snapshot.documents {
@@ -69,7 +78,7 @@ class FirebaseRecentChatHelper {
         return membersIdsToCreateRecentChat
     }
     
-    static func getRecieverUser(user: [UserModel]) -> UserModel {
+    func getRecieverUser(user: [UserModel]) -> UserModel {
         var allUsers = user
         
         guard let currentUser = FirebaseHelper.getCurrentUser else {return allUsers.first!}
