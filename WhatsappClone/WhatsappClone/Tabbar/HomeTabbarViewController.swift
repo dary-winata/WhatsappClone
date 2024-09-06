@@ -37,15 +37,17 @@ extension HomeTabbarViewController: HomeTabbarViewModelDelegate {
         let contactsVC: ContactsViewController = ContactsViewController(viewModel: contactsVM)
         contactsVC.tabBarItem = contactTabItem
         
-        let chatsVC: ChatsViewController = ChatsViewController(nibName: nil, bundle: nil)
-        chatsVC.tabBarItem = chatsTabItem
+        let recentChatVM: RecentChatViewModel = RecentChatViewModel()
+        let recentChatVC: RecentChatViewController = RecentChatViewController(viewModel: recentChatVM)
+//        let chatsVC: ChatsViewController = ChatsViewController(nibName: nil, bundle: nil)
+        recentChatVC.tabBarItem = chatsTabItem
         
         let settingsVM: SettingsViewModel = SettingsViewModel()
         let settingsVC: SettingsViewController = SettingsViewController(viewModel: settingsVM)
         settingsVC.tabBarItem = settingsTabItem
         
         tabBar.backgroundColor = .white
-        viewControllers = [contactsVC, chatsVC, settingsVC]
+        viewControllers = [contactsVC, recentChatVC, settingsVC]
         navigationItem.title = contactsVC.tabBarItem.title
         delegate = self
     }
