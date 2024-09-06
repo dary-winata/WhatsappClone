@@ -41,6 +41,7 @@ class FirebaseRecentChatHelper {
                 let recentChat = RecentMessageModel(id: UUID().uuidString, chatRoomId: roomId, senderId: senderUser.id, senderName: senderUser.username, recieverId: recieverUser.id, recieverName: recieverUser.username, date: Date(), lastMessage: "", avatar: recieverUser.avatar, unreadCounter: 0)
                 
                 // store to firebase
+                FirebaseRecentChatListener.shared.saveRecentChat(recentChat)
             }
         }
     }

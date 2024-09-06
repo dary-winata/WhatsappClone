@@ -26,6 +26,7 @@
 		6A63D4D02C8AD64400C0824F /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A63D4CF2C8AD64400C0824F /* Date+Extension.swift */; };
 		6A63D4D22C8ADB7A00C0824F /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A63D4D12C8ADB7A00C0824F /* DateUtils.swift */; };
 		6A63D4D42C8AED6C00C0824F /* FirebaseRecentChatHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A63D4D32C8AED6C00C0824F /* FirebaseRecentChatHelper.swift */; };
+		6A63D4D62C8AF7BB00C0824F /* FirebaseRecentChatListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A63D4D52C8AF7BB00C0824F /* FirebaseRecentChatListener.swift */; };
 		6A67AABE2C764B5F008F0100 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AABD2C764B5F008F0100 /* LoginViewController.swift */; };
 		6A67AAC02C764B98008F0100 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AABF2C764B98008F0100 /* LoginViewModel.swift */; };
 		6A67AAC32C76E019008F0100 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A67AAC22C76E019008F0100 /* UIColor+Extension.swift */; };
@@ -73,6 +74,7 @@
 		6A63D4CF2C8AD64400C0824F /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		6A63D4D12C8ADB7A00C0824F /* DateUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		6A63D4D32C8AED6C00C0824F /* FirebaseRecentChatHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRecentChatHelper.swift; sourceTree = "<group>"; };
+		6A63D4D52C8AF7BB00C0824F /* FirebaseRecentChatListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRecentChatListener.swift; sourceTree = "<group>"; };
 		6A67AABD2C764B5F008F0100 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		6A67AABF2C764B98008F0100 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6A67AAC22C76E019008F0100 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				6A67AAD72C76FACF008F0100 /* FirebaseUserListener.swift */,
 				6A1DE53A2C85D0D30053E477 /* FirebaseStorageHelper.swift */,
 				6A63D4D32C8AED6C00C0824F /* FirebaseRecentChatHelper.swift */,
+				6A63D4D52C8AF7BB00C0824F /* FirebaseRecentChatListener.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				6A67AAC02C764B98008F0100 /* LoginViewModel.swift in Sources */,
 				6A1DE5312C814FDC0053E477 /* EditProfileUserViewModel.swift in Sources */,
 				6A1DE54E2C88D3730053E477 /* ProfileSendMessageView.swift in Sources */,
+				6A63D4D62C8AF7BB00C0824F /* FirebaseRecentChatListener.swift in Sources */,
 				6A67AAE32C7752C9008F0100 /* RegisterViewModel.swift in Sources */,
 				6A67AAE52C7752D2008F0100 /* RegisterViewController.swift in Sources */,
 				6A1DE5492C88C9B30053E477 /* ProfileViewController.swift in Sources */,
