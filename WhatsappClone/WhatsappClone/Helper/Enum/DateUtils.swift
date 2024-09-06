@@ -20,7 +20,7 @@ func timeElapsed(_ date: Date) -> String {
         elapsed = "\(minute) \(minuteText) Ago"
     } else if second < 24 * 60 * 60 {
         let days = Int(second/(60*60))
-        let daysText = days > 1 ? "Days" : "Day"
+        let daysText = days > 1 ? "Hours" : "Hour"
         elapsed = "\(days) \(daysText) Ago"
     } else {
         elapsed = date.longDate()

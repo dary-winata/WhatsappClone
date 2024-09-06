@@ -10,6 +10,9 @@ import UIKit
 class RecentChatCell: UITableViewCell {
     private lazy var avatarImageView: UIImageView = {
         let imageView: UIImageView = UIImageView(frame: .zero)
+        imageView.layer.cornerRadius = 26
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
         imageView.heightAnchor.constraint(equalToConstant: 52).isActive = true
         imageView.widthAnchor.constraint(equalToConstant: 52).isActive = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,9 +72,15 @@ class RecentChatCell: UITableViewCell {
     }
     
     func setupModel(_ recentChat: RecentMessageModel) {
-        avatarImageView.image = UIImage(systemName: "person")
+        if recentChat.avatar == "" {
+            avatarImageView.image = UIImage(systemName: "person.circle.fill")
+        } else {
+            FirebaseStorageHelper.downloadImage(url: recentChat.avatar) { image in
+                self.avatarImageView.image = image
+            }
+        }
         lastMessageLabel.text = recentChat.lastMessage
-        usernameLabel.text = recentChat.senderName
+        usernameLabel.text = recentChat.recieverId == FirebaseHelper.getCurrentId ? recentChat.senderName : recentChat.recieverName
         
         if recentChat.unreadCounter == 0 {
             counterView.isHidden = true
@@ -79,7 +88,7 @@ class RecentChatCell: UITableViewCell {
             counterView.isHidden = false
             counterView.setupUnreadCounter(recentChat.unreadCounter)
         }
-        dateLabel.text = "Yesterday"
+        dateLabel.text = timeElapsed(recentChat.date ?? Date())
     }
 }
 

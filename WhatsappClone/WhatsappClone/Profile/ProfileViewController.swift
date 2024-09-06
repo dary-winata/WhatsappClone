@@ -103,7 +103,6 @@ extension ProfileViewController: ProfileViewModelDelegate {
             goToMessageView.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 21),
             goToMessageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             goToMessageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            goToMessageView.bottomAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
     }
     

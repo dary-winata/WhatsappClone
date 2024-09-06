@@ -68,8 +68,6 @@ extension ContactsViewController: ContactsViewModelDelegate {
     
     func setupSearchView() {
         contactListCell.tableHeaderView = searchBarController.searchBar
-//        self.navigationItem.searchController = searchBarController
-//        navigationItem.hidesSearchBarWhenScrolling = false
         contactListCell.refreshControl = refresherController
         definesPresentationContext = true
     }

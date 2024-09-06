@@ -18,6 +18,21 @@ class RecentChatViewController: UIViewController {
         
         return table
     }()
+    
+    private lazy var refreshUI: UIRefreshControl = {
+        let refresh: UIRefreshControl = UIRefreshControl()
+        
+        return refresh
+    }()
+    
+    private lazy var searchVC: UISearchController = {
+        let searchVC: UISearchController = UISearchController(nibName: nil, bundle: nil)
+        searchVC.obscuresBackgroundDuringPresentation = false
+        searchVC.searchBar.placeholder = "Search Chat"
+        searchVC.searchResultsUpdater = self
+        
+        return searchVC
+    }()
 
     let viewModel: RecentChatViewModelProtocol
     
@@ -49,12 +64,20 @@ extension RecentChatViewController: RecentChatViewModelDelegate {
             recentChatTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             recentChatTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        setupSearchView()
+    }
+    
+    func setupSearchView() {
+        recentChatTableView.tableHeaderView = searchVC.searchBar
+        recentChatTableView.refreshControl = refreshUI
+        definesPresentationContext = true
     }
 }
 
 extension RecentChatViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        viewModel.getRecentData().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -62,8 +85,26 @@ extension RecentChatViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.setupModel(RecentMessageModel(chatRoomId: "123", senderName: "Testing", lastMessage: "maka3", unreadCounter: 0))
+        cell.setupModel(viewModel.getRecentData()[indexPath.row])
         
         return cell
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if refreshUI.isRefreshing {
+            viewModel.fetchData()
+            refreshUI.endRefreshing()
+        }
+    }
+    
+    func reloadTable() {
+        self.recentChatTableView.reloadData()
+    }
+}
+
+extension RecentChatViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        viewModel.findSearchMessage(searchController.searchBar.text ?? "")
+        reloadTable()
     }
 }

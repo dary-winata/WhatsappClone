@@ -12,6 +12,32 @@ class FirebaseRecentChatListener {
     
     private init () {}
     
+    //Mark: - Download Recent Chat
+    
+    func downloadRecentChatDataFromFirestore(completion: @escaping (_ recentChats: [RecentMessageModel]) -> Void) {
+        FirebaseHelper.FirebaseReference(.Recent).whereField(keySenderId, isEqualTo: FirebaseHelper.getCurrentId).addSnapshotListener { snapshot, error in
+            var recentChat: [RecentMessageModel] = []
+            
+            guard let documents = snapshot?.documents else {
+                print("no documents")
+                completion(recentChat)
+                return
+            }
+            
+            let recentChats = documents.compactMap { snap in
+                return try? snap.data(as: RecentMessageModel.self)
+            }
+            
+            for chat in recentChats {
+                if !chat.lastMessage.isEmpty {
+                    recentChat.append(chat)
+                }
+            }
+            
+            completion(recentChat)
+        }
+    }
+    
     func saveRecentChat(_ recentChat: RecentMessageModel) {
         do {
             try FirebaseHelper.FirebaseReference(.Recent).document(recentChat.id).setData(from: recentChat)
