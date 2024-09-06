@@ -39,7 +39,6 @@ extension HomeTabbarViewController: HomeTabbarViewModelDelegate {
         
         let recentChatVM: RecentChatViewModel = RecentChatViewModel()
         let recentChatVC: RecentChatViewController = RecentChatViewController(viewModel: recentChatVM)
-//        let chatsVC: ChatsViewController = ChatsViewController(nibName: nil, bundle: nil)
         recentChatVC.tabBarItem = chatsTabItem
         
         let settingsVM: SettingsViewModel = SettingsViewModel()

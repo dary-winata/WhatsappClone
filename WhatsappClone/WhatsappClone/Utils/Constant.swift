@@ -9,3 +9,7 @@ import Foundation
 
 public let keyCurrentUser = "key_current_user"
 public let keyStorageFirebase = "gs://whatsappclone-8737d.appspot.com"
+
+public let keyChatRoomId = "chatRoomId"
+
+public let keySenderId = "senderId"
