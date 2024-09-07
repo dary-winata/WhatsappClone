@@ -22,7 +22,7 @@ protocol SettingsViewModelProtocol: AnyObject {
 }
 
 class SettingsViewModel: SettingsViewModelProtocol {
-    var delegate: SettingsViewModelDelegate?
+    weak var delegate: SettingsViewModelDelegate?
     
     private var userData: UserModel?
     

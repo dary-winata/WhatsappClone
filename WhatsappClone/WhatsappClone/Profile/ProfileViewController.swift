@@ -116,8 +116,10 @@ extension ProfileViewController: ProfileViewModelDelegate {
         }
     }
     
-    func navigateToChat() {
-        let chatVC: ChatsViewController = ChatsViewController()
+    func navigateToChat(roomId: String, receiptUser: UserModel) {
+        let receiptUser = viewModel.getUser()
+        let chatVM: ChatsViewModel = ChatsViewModel(messageModel: MessageModel(chatId: roomId, recipientId: receiptUser.id, recipientName: receiptUser.username, recipientAvatar: receiptUser.avatar))
+        let chatVC: ChatsViewController = ChatsViewController(viewModel: chatVM)
         
         navigationController?.pushViewController(chatVC, animated: true)
     }

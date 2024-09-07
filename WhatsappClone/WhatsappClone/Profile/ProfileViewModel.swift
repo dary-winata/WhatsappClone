@@ -10,7 +10,7 @@ import Foundation
 protocol ProfileViewModelDelegate: AnyObject {
     func setupView()
     func setupProfile(_ user: UserModel)
-    func navigateToChat()
+    func navigateToChat(roomId: String, receiptUser: UserModel)
 }
 
 protocol ProfileViewModelProtocol: AnyObject {
@@ -21,7 +21,7 @@ protocol ProfileViewModelProtocol: AnyObject {
 }
 
 class ProfileViewModel: ProfileViewModelProtocol {
-    var delegate: (any ProfileViewModelDelegate)?
+    weak var delegate: (any ProfileViewModelDelegate)?
     
     private var user: UserModel
     
@@ -40,9 +40,8 @@ class ProfileViewModel: ProfileViewModelProtocol {
     
     func goToMessageViewDidTapped() {
         guard let currentUser = FirebaseHelper.getCurrentUser else {return}
-        let recieverUser = self.getUser()
-        
-        let recentChat = FirebaseRecentChatHelper.shared.startChat(user1: currentUser, user2: self.user)
-        delegate?.navigateToChat()
+
+        let recentChatId = FirebaseRecentChatHelper.shared.startChat(user1: currentUser, user2: self.user)
+        delegate?.navigateToChat(roomId: recentChatId, receiptUser: user)
     }
 }

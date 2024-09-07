@@ -74,8 +74,9 @@ extension RecentChatViewController: RecentChatViewModelDelegate {
         definesPresentationContext = true
     }
     
-    func navigateToChatRoom() {
-        let chatVC: ChatsViewController = ChatsViewController()
+    func navigateToChatRoom(roomId: String, recieverUser: UserModel) {
+        let chatVM: ChatsViewModel = ChatsViewModel(messageModel: MessageModel(chatId: roomId, recipientId: recieverUser.id, recipientName: recieverUser.username, recipientAvatar: recieverUser.avatar))
+        let chatVC: ChatsViewController = ChatsViewController(viewModel: chatVM)
         
         navigationController?.pushViewController(chatVC, animated: true)
     }

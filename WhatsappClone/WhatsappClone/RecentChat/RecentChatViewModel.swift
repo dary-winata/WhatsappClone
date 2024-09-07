@@ -10,7 +10,7 @@ import Foundation
 protocol RecentChatViewModelDelegate: AnyObject {
     func setupView()
     func reloadTable()
-    func navigateToChatRoom()
+    func navigateToChatRoom(roomId: String, recieverUser: UserModel)
 }
 
 protocol RecentChatViewModelProtocol: AnyObject {
@@ -23,7 +23,7 @@ protocol RecentChatViewModelProtocol: AnyObject {
 }
 
 class RecentChatViewModel: RecentChatViewModelProtocol {
-    var delegate: RecentChatViewModelDelegate?
+    weak var delegate: RecentChatViewModelDelegate?
     
     private var recentData: [RecentMessageModel] = []
     private var filteredData: [RecentMessageModel] = []
@@ -66,6 +66,10 @@ class RecentChatViewModel: RecentChatViewModelProtocol {
     
     func tableViewDidSelectDidTapped(_ idx: Int) {
         FirebaseRecentChatHelper.shared.restartChat(chatRoomId: filteredData[idx].chatRoomId, membersIds: [filteredData[idx].senderId, filteredData[idx].recieverId])
-        delegate?.navigateToChatRoom()
+        FirebaseUserListener.shared.getUserFromFirestorById(filteredData[idx].recieverId) { user in
+            DispatchQueue.main.async {
+                self.delegate?.navigateToChatRoom(roomId: self.filteredData[idx].chatRoomId, recieverUser: user)                
+            }
+        }
     }
 }
