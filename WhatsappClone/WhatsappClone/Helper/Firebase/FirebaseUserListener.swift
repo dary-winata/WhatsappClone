@@ -124,6 +124,25 @@ class FirebaseUserListener {
         }
     }
     
+    func getMultipleUserFromFirestorById(_ ids: [String], completion: @escaping (_ user: [UserModel]) -> Void) {
+        var users: [UserModel] = []
+        var counter: Int = 0
+        
+        for id in ids {
+            FirebaseHelper.FirebaseReference(.User).document(id).getDocument { snapshot, err in
+                guard let user = snapshot else {return}
+                
+                guard let decriptedUser = try? user.data(as: UserModel.self) else {return}
+                users.append(decriptedUser)
+                
+                counter += 1
+                if counter == ids.count {
+                    completion(users)
+                }
+            }
+        }
+    }
+    
     // Mark: - Reset Password
     func resetPassword(email: String, completion: @escaping (_ error: Error?) -> Void) {
         Auth.auth().sendPasswordReset(withEmail: email) { err in

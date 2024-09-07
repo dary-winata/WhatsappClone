@@ -10,6 +10,7 @@ import Foundation
 protocol RecentChatViewModelDelegate: AnyObject {
     func setupView()
     func reloadTable()
+    func navigateToChatRoom()
 }
 
 protocol RecentChatViewModelProtocol: AnyObject {
@@ -18,6 +19,7 @@ protocol RecentChatViewModelProtocol: AnyObject {
     func getRecentData() -> [RecentMessageModel]
     func fetchData()
     func findSearchMessage(_ text: String)
+    func tableViewDidSelectDidTapped(_ idx: Int)
 }
 
 class RecentChatViewModel: RecentChatViewModelProtocol {
@@ -54,11 +56,16 @@ class RecentChatViewModel: RecentChatViewModelProtocol {
             let currentUser = FirebaseHelper.getCurrentUser?.username
             self.filteredData = recentData.filter({ recentMessage in
                 if currentUser == recentMessage.recieverName {
-                    return recentMessage.recieverName.lowercased().contains(text.lowercased()) || recentMessage.lastMessage.lowercased().contains(text.lowercased())
-                } else {
                     return recentMessage.senderName.lowercased().contains(text.lowercased()) || recentMessage.lastMessage.lowercased().contains(text.lowercased())
+                } else {
+                    return recentMessage.recieverName.lowercased().contains(text.lowercased()) || recentMessage.lastMessage.lowercased().contains(text.lowercased())
                 }
             })
         }
+    }
+    
+    func tableViewDidSelectDidTapped(_ idx: Int) {
+        FirebaseRecentChatHelper.shared.restartChat(chatRoomId: filteredData[idx].chatRoomId, membersIds: [filteredData[idx].senderId, filteredData[idx].recieverId])
+        delegate?.navigateToChatRoom()
     }
 }

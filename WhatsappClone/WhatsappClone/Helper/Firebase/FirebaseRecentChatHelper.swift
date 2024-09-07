@@ -23,6 +23,14 @@ class FirebaseRecentChatHelper {
         return roomId
     }
     
+    func restartChat(chatRoomId: String, membersIds: [String]) {
+        FirebaseUserListener.shared.getMultipleUserFromFirestorById(membersIds) { user in
+            if user.count > 0 {
+                FirebaseRecentChatHelper.shared.createRecentChatItem(roomId: chatRoomId, users: user)
+            }
+        }
+    }
+    
     func createRecentChatItem(roomId: String, users: [UserModel]) {
         if users.isEmpty {
             return
@@ -82,6 +90,7 @@ class FirebaseRecentChatHelper {
         var allUsers = user
         
         guard let currentUser = FirebaseHelper.getCurrentUser else {return allUsers.first!}
+//        guard let currentUserIndex = allUsers.firstIndex(of: currentUser) else {return allUsers.first!}
         allUsers.remove(at: allUsers.firstIndex(of: currentUser)!)
         
         return allUsers.first!

@@ -73,6 +73,12 @@ extension RecentChatViewController: RecentChatViewModelDelegate {
         recentChatTableView.refreshControl = refreshUI
         definesPresentationContext = true
     }
+    
+    func navigateToChatRoom() {
+        let chatVC: ChatsViewController = ChatsViewController()
+        
+        navigationController?.pushViewController(chatVC, animated: true)
+    }
 }
 
 extension RecentChatViewController: UITableViewDelegate, UITableViewDataSource {
@@ -88,6 +94,10 @@ extension RecentChatViewController: UITableViewDelegate, UITableViewDataSource {
         cell.setupModel(viewModel.getRecentData()[indexPath.row])
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.tableViewDidSelectDidTapped(indexPath.row)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
