@@ -70,10 +70,7 @@ class ProfileViewController: UIViewController {
 private extension ProfileViewController {
     @objc
     func goToMessageViewDidTapped() {
-        guard let currentUser = FirebaseHelper.getCurrentUser else {return}
-        let recieverUser = viewModel.getUser()
-        
-        let recentChat = FirebaseRecentChatHelper.shared.startChat(user1: currentUser, user2: recieverUser)
+        viewModel.goToMessageViewDidTapped()
     }
 }
 
@@ -117,5 +114,11 @@ extension ProfileViewController: ProfileViewModelDelegate {
                 self.profileAvatarImage.image = image
             }
         }
+    }
+    
+    func navigateToChat() {
+        let chatVC: ChatsViewController = ChatsViewController()
+        
+        navigationController?.pushViewController(chatVC, animated: true)
     }
 }
