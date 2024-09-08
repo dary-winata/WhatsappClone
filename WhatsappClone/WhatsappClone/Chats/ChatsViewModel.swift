@@ -51,6 +51,6 @@ class ChatsViewModel: ChatsViewModelProtocol {
     
     // Mark: Actions
     func onAttachButtonDidTapped(_ text: String?) {
-        OutgoingMessageHelper.send(chatId: messageModel.chatId, text: text)
+        OutgoingMessageHelper.send(chatId: messageModel.chatId, text: text, membersIds: [currentUser.senderId, messageModel.recipientId])
     }
 }

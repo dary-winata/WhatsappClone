@@ -8,10 +8,10 @@
 import Foundation
 
 class OutgoingMessageHelper {
-    static func send(chatId: String, text: String?) {
+    static func send(chatId: String, text: String?, membersIds: [String]) {
         guard let currentUser = FirebaseHelper.getCurrentUser else {return}
         
-        var localMessage = LocalMessage()
+        let localMessage = LocalMessage()
         localMessage.id = UUID().uuidString
         localMessage.date = Date()
         localMessage.chatRoomID = chatId
@@ -21,17 +21,24 @@ class OutgoingMessageHelper {
         localMessage.status = ChatStatusEnum.sent.rawValue
         
         if let text {
-            sendTextMessage(localMessage: localMessage, text: text)
+            sendTextMessage(localMessage: localMessage, text: text, membersIds: membersIds)
         }
     }
     
-    static func sendMessage(localMessage: LocalMessage) {
+    static func sendMessage(localMessage: LocalMessage, membersIds: [String]) {
         print(localMessage)
+        // save message to realm
+        DBManager.shared.saveToRealm(localMessage)
+        
+        // send message/save to firebase
+        for id in membersIds {
+            print("save to member ", id)
+        }
     }
     
-    static func sendTextMessage(localMessage: LocalMessage, text: String) {
+    static func sendTextMessage(localMessage: LocalMessage, text: String, membersIds: [String]) {
         localMessage.type = SendChatTypeEnum.text.rawValue
         localMessage.message = text
-        sendMessage(localMessage: localMessage)
+        sendMessage(localMessage: localMessage, membersIds: membersIds)
     }
 }
