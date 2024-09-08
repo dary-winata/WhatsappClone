@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ChatsViewModelDelegate: AnyObject {
     func configMessageCollectionView()
@@ -17,6 +18,7 @@ protocol ChatsViewModelProtocol: AnyObject {
     func onViewDidLoad()
     func getCurrentUser() -> MKSender
     func getMKMessage() -> [MKMessage]
+    func onAttachButtonDidTapped(_ text: String?)
 }
 
 class ChatsViewModel: ChatsViewModelProtocol {
@@ -45,5 +47,10 @@ class ChatsViewModel: ChatsViewModelProtocol {
     
     func getCurrentUser() -> MKSender {
         return currentUser
+    }
+    
+    // Mark: Actions
+    func onAttachButtonDidTapped(_ text: String?) {
+        OutgoingMessageHelper.send(chatId: messageModel.chatId, text: text)
     }
 }

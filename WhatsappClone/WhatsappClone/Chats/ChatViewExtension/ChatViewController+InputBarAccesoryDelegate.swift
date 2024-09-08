@@ -18,7 +18,7 @@ extension ChatsViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         for component in inputBar.inputTextView.components {
             if let text = component as? String {
-                print("send message \(text)")
+                viewModel.onAttachButtonDidTapped(text)
             }
         }
         
