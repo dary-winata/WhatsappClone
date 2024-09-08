@@ -40,7 +40,7 @@ class ChatsViewModel: ChatsViewModelProtocol {
     }
     
     func getMKMessage() -> [MKMessage] {
-        return getMKMessage()
+        return mkMessages
     }
     
     func getCurrentUser() -> MKSender {
