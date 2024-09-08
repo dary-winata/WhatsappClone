@@ -68,5 +68,10 @@ extension ChatsViewController: ChatsViewModelDelegate {
         messageInputBar.setStackViewItems([attachFileButton], forStack: .left, animated: false)
         messageInputBar.setLeftStackViewWidthConstant(to: 24, animated: false)
     }
+    
+    func reloadMessages(animated: Bool) {
+        messagesCollectionView.reloadData()
+        messagesCollectionView.scrollToLastItem(animated: animated)
+    }
 }
 
