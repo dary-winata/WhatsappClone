@@ -17,7 +17,7 @@ class FirebaseMessageListener {
     func saveMessage(_ message: LocalMessage, memberId: String) {
         do {
             try FirebaseHelper.FirebaseReference(.Message)
-                .document(memberId).collection(message.chatRoomID)
+                .document(memberId).collection(message.chatRoomId)
                 .document(message.id)
                 .setData(from: message)
         } catch {

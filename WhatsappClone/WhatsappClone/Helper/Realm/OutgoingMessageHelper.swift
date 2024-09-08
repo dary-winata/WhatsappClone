@@ -14,7 +14,7 @@ class OutgoingMessageHelper {
         let localMessage = LocalMessage()
         localMessage.id = UUID().uuidString
         localMessage.date = Date()
-        localMessage.chatRoomID = chatId
+        localMessage.chatRoomId = chatId
         localMessage.senderId = currentUser.id
         localMessage.senderName = currentUser.username
         localMessage.senderInitial = String(currentUser.username.first ?? "?")

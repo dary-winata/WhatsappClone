@@ -10,7 +10,7 @@ import RealmSwift
 
 class LocalMessage: Object, Codable {
     @objc dynamic var id: String = ""
-    @objc dynamic var chatRoomID: String = ""
+    @objc dynamic var chatRoomId: String = ""
     @objc dynamic var date: Date = Date()
     @objc dynamic var senderName: String = ""
     @objc dynamic var senderId: String = ""

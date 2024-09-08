@@ -13,3 +13,4 @@ public let keyStorageFirebase = "gs://whatsappclone-8737d.appspot.com"
 public let keyChatRoomId = "chatRoomId"
 
 public let keySenderId = "senderId"
+public let keyDate = "date"
