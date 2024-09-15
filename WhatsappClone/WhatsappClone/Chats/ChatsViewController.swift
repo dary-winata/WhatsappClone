@@ -69,6 +69,17 @@ extension ChatsViewController: ChatsViewModelDelegate {
         messageInputBar.setLeftStackViewWidthConstant(to: 24, animated: false)
     }
     
+    func configureCustomCell() {
+        messagesCollectionView.register(CustomTextViewCell.self)
+        
+        // custom chat calc
+        let textCal = CustomTextCalculatorSize(layout: messagesCollectionView.messagesCollectionViewFlowLayout)
+        messagesCollectionView.messagesCollectionViewFlowLayout.textMessageSizeCalculator = textCal
+        
+        messagesCollectionView.messagesCollectionViewFlowLayout.setMessageIncomingAvatarSize(.zero)
+        messagesCollectionView.messagesCollectionViewFlowLayout.setMessageOutgoingAvatarSize(.zero)
+    }
+    
     func reloadMessages(animated: Bool) {
         messagesCollectionView.reloadData()
         messagesCollectionView.scrollToLastItem(animated: animated)

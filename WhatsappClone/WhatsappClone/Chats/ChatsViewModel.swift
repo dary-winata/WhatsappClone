@@ -12,6 +12,7 @@ import UIKit
 protocol ChatsViewModelDelegate: AnyObject {
     func configMessageCollectionView()
     func configMessageInputBar()
+    func configureCustomCell()
     func reloadMessages(animated: Bool)
 }
 
@@ -43,6 +44,7 @@ class ChatsViewModel: ChatsViewModelProtocol {
     func onViewDidLoad() {
         delegate?.configMessageCollectionView()
         delegate?.configMessageInputBar()
+        delegate?.configureCustomCell()
         loadChats()
     }
     
