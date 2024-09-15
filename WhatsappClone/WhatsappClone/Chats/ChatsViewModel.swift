@@ -13,7 +13,9 @@ protocol ChatsViewModelDelegate: AnyObject {
     func configMessageCollectionView()
     func configMessageInputBar()
     func configureCustomCell()
+    func configureHeaderView()
     func reloadMessages(animated: Bool)
+    func navigateToProfile(user: UserModel)
 }
 
 protocol ChatsViewModelProtocol: AnyObject {
@@ -22,6 +24,8 @@ protocol ChatsViewModelProtocol: AnyObject {
     func getCurrentUser() -> MKSender
     func getMKMessage() -> [MKMessage]
     func onAttachButtonDidTapped(_ text: String?)
+    func getReceiveUser() -> MessageModel
+    func onHeaderViewDidTapped()
 }
 
 class ChatsViewModel: ChatsViewModelProtocol {
@@ -45,6 +49,7 @@ class ChatsViewModel: ChatsViewModelProtocol {
         delegate?.configMessageCollectionView()
         delegate?.configMessageInputBar()
         delegate?.configureCustomCell()
+        delegate?.configureHeaderView()
         loadChats()
     }
     
@@ -80,6 +85,16 @@ class ChatsViewModel: ChatsViewModelProtocol {
                 print("error: \(err.localizedDescription)")
             }
         })
+    }
+    
+    func getReceiveUser() -> MessageModel {
+        return messageModel
+    }
+    
+    func onHeaderViewDidTapped() {
+        FirebaseUserListener.shared.getUserFromFirestorById(messageModel.recipientId) { user in
+            self.delegate?.navigateToProfile(user: user)
+        }
     }
 }
 

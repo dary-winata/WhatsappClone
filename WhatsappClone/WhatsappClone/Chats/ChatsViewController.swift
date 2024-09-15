@@ -10,13 +10,22 @@ import MessageKit
 import UIKit
 
 class ChatsViewController: MessagesViewController {
-    private var attachFileButton: InputBarButtonItem = {
+    private lazy var attachFileButton: InputBarButtonItem = {
         let inputBar: InputBarButtonItem = InputBarButtonItem()
         inputBar.image = UIImage(systemName: "plus")
         let gesture = UITapGestureRecognizer(target: ChatsViewController.self, action: #selector(attachButtonDidTapped))
         inputBar.addGestureRecognizer(gesture)
         
         return inputBar
+    }()
+    
+    private lazy var headerChatView: ChatHeaderView = {
+        let headerView: ChatHeaderView = ChatHeaderView(frame: .zero)
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(onHeaderViewDidTapped))
+        headerView.addGestureRecognizer(tapGesture)
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return headerView
     }()
     
     let viewModel: ChatsViewModelProtocol
@@ -80,9 +89,35 @@ extension ChatsViewController: ChatsViewModelDelegate {
         messagesCollectionView.messagesCollectionViewFlowLayout.setMessageOutgoingAvatarSize(.zero)
     }
     
+    func configureHeaderView() {
+        self.navigationItem.titleView = headerChatView
+        
+        if let navbar = navigationController?.navigationBar {
+            headerChatView.widthAnchor.constraint(equalToConstant: navbar.frame.width).isActive = true
+            headerChatView.heightAnchor.constraint(equalToConstant: navbar.frame.height).isActive = true
+        }
+        
+        let messageModel = viewModel.getReceiveUser()
+        headerChatView.setupData(avatarImage: messageModel.recipientAvatar, username: messageModel.recipientName, status: "Tap here for contact info")
+    }
+    
     func reloadMessages(animated: Bool) {
         messagesCollectionView.reloadData()
         messagesCollectionView.scrollToLastItem(animated: animated)
     }
+    
+    func navigateToProfile(user: UserModel) {
+        let profileVM = ProfileViewModel(user: user)
+        let profileVC = ProfileViewController(viewModel: profileVM)
+        
+        navigationController?.pushViewController(profileVC, animated: true)
+    }
 }
 
+private extension ChatsViewController {
+    @objc
+    func onHeaderViewDidTapped() {
+        print("testing")
+        viewModel.onHeaderViewDidTapped()
+    }
+}
