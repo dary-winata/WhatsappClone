@@ -10,6 +10,7 @@ import RealmSwift
 import UIKit
 
 protocol ChatsViewModelDelegate: AnyObject {
+    func configBackgroundChatView()
     func configMessageCollectionView()
     func configMessageInputBar()
     func configureCustomCell()
@@ -46,6 +47,7 @@ class ChatsViewModel: ChatsViewModelProtocol {
     }
     
     func onViewDidLoad() {
+        delegate?.configBackgroundChatView()
         delegate?.configMessageCollectionView()
         delegate?.configMessageInputBar()
         delegate?.configureCustomCell()

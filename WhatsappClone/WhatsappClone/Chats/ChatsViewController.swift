@@ -10,6 +10,15 @@ import MessageKit
 import UIKit
 
 class ChatsViewController: MessagesViewController {
+    private lazy var backgroundChat: UIImageView = {
+        let imageView: UIImageView = UIImageView(frame: .zero)
+        imageView.contentMode = .scaleAspectFill
+        imageView.image = UIImage(named: "chat_bg")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
+    
     private lazy var attachFileButton: InputBarButtonItem = {
         let inputBar: InputBarButtonItem = InputBarButtonItem()
         inputBar.image = UIImage(systemName: "plus")
@@ -54,6 +63,17 @@ private extension ChatsViewController {
 }
 
 extension ChatsViewController: ChatsViewModelDelegate {
+    func configBackgroundChatView() {
+        messagesCollectionView.backgroundView = backgroundChat
+        
+        NSLayoutConstraint.activate([
+            backgroundChat.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            backgroundChat.leadingAnchor.constraint(equalTo: messagesCollectionView.leadingAnchor),
+            backgroundChat.trailingAnchor.constraint(equalTo: messagesCollectionView.trailingAnchor),
+            backgroundChat.bottomAnchor.constraint(equalTo: messagesCollectionView.bottomAnchor)
+        ])
+    }
+    
     func configMessageCollectionView() {
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesDisplayDelegate = self
