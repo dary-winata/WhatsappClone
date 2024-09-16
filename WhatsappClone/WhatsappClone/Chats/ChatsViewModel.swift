@@ -72,6 +72,11 @@ class ChatsViewModel: ChatsViewModelProtocol {
     func loadChats() {
         let predicate = NSPredicate(format: "\(keyChatRoomId) = %@", messageModel.chatId)
         
+        // load chat from firebase
+        if allLocalMessage == nil || allLocalMessage.isEmpty {
+            FirebaseMessageListener.shared.fetchOldChat(chatId: messageModel.chatId, receiverId: messageModel.recipientId)
+        }
+        
         allLocalMessage = DBManager.shared.realm.objects(LocalMessage.self).filter(predicate).sorted(byKeyPath: keyDate, ascending: true)
         
         realmToken = allLocalMessage?.observe({ (changes: RealmCollectionChange) in

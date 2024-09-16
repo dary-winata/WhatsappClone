@@ -24,4 +24,24 @@ class FirebaseMessageListener {
             print("error adding to firebase: ", error.localizedDescription)
         }
     }
+    
+    // Mark: Fetch old message and save to realmdb
+    func fetchOldChat(chatId: String, receiverId: String) {
+        FirebaseHelper.FirebaseReference(.Message).document(receiverId).collection(chatId).getDocuments { snapshot, err in
+            guard let documents = snapshot?.documents else {
+                print("no message found in firebase")
+                return
+            }
+            
+            var messages = documents.compactMap { query in
+                return try? query.data(as: LocalMessage.self)
+            }
+            
+            messages.sort(by: {$0.date < $1.date})
+            
+            for message in messages {
+                DBManager.shared.saveToRealm(message)
+            }
+        }
+    }
 }
