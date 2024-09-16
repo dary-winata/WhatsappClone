@@ -22,8 +22,32 @@ class ChatsViewController: MessagesViewController {
     private lazy var attachFileButton: InputBarButtonItem = {
         let inputBar: InputBarButtonItem = InputBarButtonItem()
         inputBar.image = UIImage(systemName: "plus")
-        let gesture = UITapGestureRecognizer(target: ChatsViewController.self, action: #selector(attachButtonDidTapped))
-        inputBar.addGestureRecognizer(gesture)
+        inputBar.setSize(CGSize(width: 18.6, height: 18.6), animated: false)
+        inputBar.onTouchUpInside { _ in
+            self.attachButtonDidTapped()
+        }
+        
+        return inputBar
+    }()
+    
+    private lazy var cameraButton: InputBarButtonItem = {
+        let inputBar: InputBarButtonItem = InputBarButtonItem()
+        inputBar.image = UIImage(systemName: "camera")
+        inputBar.setSize(CGSize(width: 22, height: 19), animated: false)
+        inputBar.onTouchUpInside { _ in
+            self.cameraButtonDidTapped()
+        }
+        
+        return inputBar
+    }()
+    
+    private lazy var microphoneButton: InputBarButtonItem = {
+        let inputBar: InputBarButtonItem = InputBarButtonItem()
+        inputBar.image = UIImage(systemName: "mic")
+        inputBar.setSize(CGSize(width: 15.7, height: 23.1), animated: false)
+        inputBar.onTouchUpInside { _ in
+            self.microphoneButtonDidTapped()
+        }
         
         return inputBar
     }()
@@ -53,18 +77,41 @@ class ChatsViewController: MessagesViewController {
         super.viewDidLoad()
         viewModel.onViewDidLoad()
     }
+    
+    func onChatMessageIsEdited(isEdited: Bool) {
+        if isEdited {
+            messageInputBar.setStackViewItems([messageInputBar.sendButton], forStack: .right, animated: false)
+        } else {
+            messageInputBar.setStackViewItems([cameraButton, microphoneButton], forStack: .right, animated: false)
+        }
+    }
 }
 
 private extension ChatsViewController {
-    @objc
-    private func attachButtonDidTapped() {
+    func attachButtonDidTapped() {
         print("attach tapped")
+    }
+    
+    func cameraButtonDidTapped() {
+        print("camera did tapped")
+    }
+    
+    func microphoneButtonDidTapped() {
+        print("microphone did tapped")
+    }
+    
+    @objc
+    func onHeaderViewDidTapped() {
+        print("testing")
+        viewModel.onHeaderViewDidTapped()
     }
 }
 
 extension ChatsViewController: ChatsViewModelDelegate {
     func configBackgroundChatView() {
         messagesCollectionView.backgroundView = backgroundChat
+        messageInputBar.leftStackView.alignment = .center
+        messageInputBar.rightStackView.alignment = .center
         
         NSLayoutConstraint.activate([
             backgroundChat.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -86,6 +133,9 @@ extension ChatsViewController: ChatsViewModelDelegate {
     
     func configMessageInputBar() {
         messageInputBar.delegate = self
+        messageInputBar.sendButton.title = ""
+        let image: UIImage? = UIImage(systemName: "paperplane.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 24))
+        messageInputBar.sendButton.image = image
         
         messageInputBar.inputTextView.isImagePasteEnabled = false
         messageInputBar.inputTextView.backgroundColor = .white
@@ -96,6 +146,8 @@ extension ChatsViewController: ChatsViewModelDelegate {
         
         messageInputBar.setStackViewItems([attachFileButton], forStack: .left, animated: false)
         messageInputBar.setLeftStackViewWidthConstant(to: 24, animated: false)
+        messageInputBar.rightStackView.spacing = 1
+        onChatMessageIsEdited(isEdited: false)
     }
     
     func configureCustomCell() {
@@ -131,13 +183,5 @@ extension ChatsViewController: ChatsViewModelDelegate {
         let profileVC = ProfileViewController(viewModel: profileVM)
         
         navigationController?.pushViewController(profileVC, animated: true)
-    }
-}
-
-private extension ChatsViewController {
-    @objc
-    func onHeaderViewDidTapped() {
-        print("testing")
-        viewModel.onHeaderViewDidTapped()
     }
 }

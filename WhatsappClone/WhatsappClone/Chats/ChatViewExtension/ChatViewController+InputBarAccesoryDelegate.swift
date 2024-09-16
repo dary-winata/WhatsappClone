@@ -10,9 +10,7 @@ import InputBarAccessoryView
 
 extension ChatsViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, textViewTextDidChangeTo text: String) {
-        if !text.isEmpty {
-            //Typing
-        }
+        onChatMessageIsEdited(isEdited: !text.isEmpty)
     }
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
