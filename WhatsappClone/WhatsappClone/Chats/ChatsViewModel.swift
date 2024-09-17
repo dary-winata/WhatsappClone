@@ -47,6 +47,7 @@ class ChatsViewModel: ChatsViewModelProtocol {
     }
     
     func onViewDidLoad() {
+        listenForNewChat()
         delegate?.configBackgroundChatView()
         delegate?.configMessageCollectionView()
         delegate?.configMessageInputBar()
@@ -86,7 +87,6 @@ class ChatsViewModel: ChatsViewModelProtocol {
                 self.createMessages()
                 self.delegate?.reloadMessages(animated: false)
             case .update(_ , deletions: _, insertions: let insertion, modifications: _):
-                print("data: \(insertion.first!)")
                 self.updateInputedMessages(insertion: insertion)
             case .error(let err):
                 print("error: \(err.localizedDescription)")
@@ -124,5 +124,14 @@ private extension ChatsViewModel {
             createMessage(allLocalMessage[idx])
         }
         delegate?.reloadMessages(animated: false)
+    }
+    
+    func listenForNewChat() {
+        FirebaseMessageListener.shared.listenForNewChat(chatId: messageModel.chatId, receiveId: messageModel.recipientId, lastMessageDate: lastMessageDate())
+    }
+    
+    func lastMessageDate() -> Date {
+        let lastMessage = allLocalMessage?.last?.date ?? Date()
+        return Calendar.current.date(byAdding: .second, value: 1, to: lastMessage) ?? Date()
     }
 }

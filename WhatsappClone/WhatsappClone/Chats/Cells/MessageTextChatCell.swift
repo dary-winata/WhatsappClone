@@ -122,10 +122,10 @@ class CustomTextViewCell: MessageContentCell {
                 allView.leadingAnchor.constraint(greaterThanOrEqualTo: messageContainerView.leadingAnchor)
             ])
             allView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMinXMaxYCorner]
-            
             allView.backgroundColor = UIColor(named: "chat_output")
         } else {
-            
+            allView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner, .layerMaxXMaxYCorner]
+            allView.backgroundColor = .white
         }
     }
     
