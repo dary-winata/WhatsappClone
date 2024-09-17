@@ -61,6 +61,8 @@ class ChatsViewController: MessagesViewController {
         return headerView
     }()
     
+    private lazy var refreshController: UIRefreshControl = UIRefreshControl()
+    
     let viewModel: ChatsViewModelProtocol
     
     init(viewModel: ChatsViewModelProtocol) {
@@ -83,6 +85,16 @@ class ChatsViewController: MessagesViewController {
             messageInputBar.setStackViewItems([messageInputBar.sendButton], forStack: .right, animated: false)
         } else {
             messageInputBar.setStackViewItems([cameraButton, microphoneButton], forStack: .right, animated: false)
+        }
+    }
+    
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if refreshController.isRefreshing {
+            print("refreshing")
+            viewModel.createOldMessages()
+            reloadMessages(animated: false)
+            messagesCollectionView.setContentOffset(CGPoint.zero, animated: false)
+            refreshController.endRefreshing()
         }
     }
 }
@@ -159,6 +171,7 @@ extension ChatsViewController: ChatsViewModelDelegate {
         
         messagesCollectionView.messagesCollectionViewFlowLayout.setMessageIncomingAvatarSize(.zero)
         messagesCollectionView.messagesCollectionViewFlowLayout.setMessageOutgoingAvatarSize(.zero)
+        messagesCollectionView.refreshControl = refreshController
     }
     
     func configureHeaderView() {

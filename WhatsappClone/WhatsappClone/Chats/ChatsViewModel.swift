@@ -27,6 +27,7 @@ protocol ChatsViewModelProtocol: AnyObject {
     func onAttachButtonDidTapped(_ text: String?)
     func getReceiveUser() -> MessageModel
     func onHeaderViewDidTapped()
+    func createOldMessages()
 }
 
 class ChatsViewModel: ChatsViewModelProtocol {
@@ -41,6 +42,8 @@ class ChatsViewModel: ChatsViewModelProtocol {
         return sender
     }()
     private var realmToken: NotificationToken?
+    private var maxChatDisplay: Int = 0
+    private var minChatDisplay: Int = 0
     
     init(messageModel: MessageModel) {
         self.messageModel = messageModel
@@ -103,19 +106,44 @@ class ChatsViewModel: ChatsViewModelProtocol {
             self.delegate?.navigateToProfile(user: user)
         }
     }
+    
+    func createOldMessages() {
+        maxChatDisplay = minChatDisplay - 1
+        minChatDisplay = maxChatDisplay - keyLimitChat
+        
+        if minChatDisplay < 0 {
+            minChatDisplay = 0
+        }
+        
+        for idx in (minChatDisplay ... maxChatDisplay).reversed() {
+            createOlderMessage(allLocalMessage[idx])
+        }
+    }
 }
 
 private extension ChatsViewModel {
     func createMessages() {
-        for message in allLocalMessage {
-            createMessage(message)
+        maxChatDisplay = allLocalMessage.count
+        minChatDisplay = maxChatDisplay - keyLimitChat
+        
+        if minChatDisplay < 0 {
+            minChatDisplay = 0
+        }
+        
+        for idx in minChatDisplay ..< maxChatDisplay {
+            createMessage(allLocalMessage[idx])
         }
     }
     
     func createMessage(_ message: LocalMessage) {
         if let localMessage = IncomeChatHelper.createMessage(localMessage: message) {
             mkMessages.append(localMessage)
-            print("create message \(message.message)")
+        }
+    }
+    
+    func createOlderMessage(_ message: LocalMessage) {
+        if let localMessage = IncomeChatHelper.createMessage(localMessage: message) {
+            mkMessages.insert(localMessage, at: 0)
         }
     }
     

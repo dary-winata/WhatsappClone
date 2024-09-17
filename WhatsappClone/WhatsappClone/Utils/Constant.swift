@@ -14,3 +14,5 @@ public let keyChatRoomId = "chatRoomId"
 
 public let keySenderId = "senderId"
 public let keyDate = "date"
+
+public let keyLimitChat = 5
