@@ -95,4 +95,57 @@ class FirebaseRecentChatHelper {
         
         return allUsers.first!
     }
+    
+    // Mark: - Update recent chat
+    func updateRecentChat(chatRoomId: String, lastMessage: String) {
+        // get recent chat on firebase
+        FirebaseHelper.FirebaseReference(.Recent).whereField(keyChatRoomId, isEqualTo: chatRoomId).getDocuments { snapshot, err in
+            guard let snapshot else {return}
+            
+            let result = snapshot.documents.compactMap { query in
+                try? query.data(as: RecentMessageModel.self)
+            }
+            
+            for data in result {
+                // update coutner and recent chat at firebase
+                self.updateRecentChatToFirebase(lastMessage: lastMessage, recentChat: data)
+            }
+        }
+    }
+    
+    private func updateRecentChatToFirebase(lastMessage: String, recentChat: RecentMessageModel) {
+        var tempRecent = recentChat
+        
+        if tempRecent.senderId != FirebaseHelper.getCurrentId {
+            tempRecent.unreadCounter += 1
+        }
+        
+        tempRecent.lastMessage = lastMessage
+        tempRecent.date = Date()
+        
+        FirebaseRecentChatListener.shared.saveRecentChat(tempRecent)
+    }
+    
+    // Mark: Reset recent chat counter
+    func resetRecentChatCounter(chatRooomId: String) {
+        FirebaseHelper.FirebaseReference(.Recent).whereField(keyChatRoomId, isEqualTo: chatRooomId).whereField(keySenderId, isEqualTo: FirebaseHelper.getCurrentId).getDocuments { snapshot, err in
+            guard let snapshot else {return}
+            
+            let snapshotResult = snapshot.documents.compactMap { query in
+                try? query.data(as: RecentMessageModel.self)
+            }
+            
+            if snapshotResult.count > 0 {
+                if let firstSnapshot = snapshotResult.first {
+                    self.savedRecentChatCounter(recentChat: firstSnapshot)
+                }
+            }
+        }
+    }
+    
+    private func savedRecentChatCounter(recentChat: RecentMessageModel) {
+        var tempRecent = recentChat
+        tempRecent.unreadCounter = 0
+        FirebaseRecentChatListener.shared.saveRecentChat(tempRecent)
+    }
 }

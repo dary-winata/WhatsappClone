@@ -78,11 +78,13 @@ class ChatsViewController: MessagesViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.onViewDidLoad()
+        viewModel.resetCounterChat()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         viewModel.userOnTyping(isTyping: false)
+        viewModel.resetCounterChat()
     }
     
     func onChatMessageIsEdited(isEdited: Bool) {

@@ -8,21 +8,6 @@
 import UIKit
 
 class ProfileSendMessageView: UIView {
-//    private lazy var iconChatImage: UIImageView = {
-//        let imageView: UIImageView = UIImageView(frame: .zero)
-//        imageView.image = UIImage(systemName: "message.fill")
-//        imageView.contentMode = .scaleAspectFit
-//        imageView.backgroundColor = UIColor(redMax: 237, greenMax: 237, blueMax: 255, alphaMax: 1)
-//        imageView.layer.cornerRadius = 18
-//        imageView.layer.masksToBounds = true
-//        imageView.layer.borderWidth = 7
-//        imageView.layer.borderColor = UIColor.black.cgColor
-//        imageView.widthAnchor.constraint(equalToConstant: 36).isActive = true
-//        imageView.heightAnchor.constraint(equalToConstant: 36).isActive = true
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        return imageView
-//    }()
     
     private lazy var iconChatImage: BubbleCircleView = {
         let imageView: BubbleCircleView = BubbleCircleView(frame: .zero)

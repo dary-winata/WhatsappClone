@@ -30,6 +30,7 @@ protocol ChatsViewModelProtocol: AnyObject {
     func onHeaderViewDidTapped()
     func createOldMessages()
     func userOnTyping(isTyping: Bool)
+    func resetCounterChat()
 }
 
 class ChatsViewModel: ChatsViewModelProtocol {
@@ -130,6 +131,10 @@ class ChatsViewModel: ChatsViewModelProtocol {
             FirebaseTypingListener.shared.saveTypingStatus(typingStatus: isTyping, chatRoomId: messageModel.chatId)
             self.isUserTyping = isTyping
         }
+    }
+    
+    func resetCounterChat() {
+        FirebaseRecentChatHelper.shared.resetRecentChatCounter(chatRooomId: messageModel.chatId)
     }
 }
 

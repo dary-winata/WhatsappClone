@@ -45,4 +45,8 @@ class FirebaseRecentChatListener {
             print("Error save recent chat ", error.localizedDescription)
         }
     }
+    
+    func updateRecentChat(chatRoomId: String, lastMessage: String) {
+        
+    }
 }

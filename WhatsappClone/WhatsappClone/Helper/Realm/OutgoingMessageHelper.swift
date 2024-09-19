@@ -22,6 +22,7 @@ class OutgoingMessageHelper {
         
         if let text {
             sendTextMessage(localMessage: localMessage, text: text, membersIds: membersIds)
+            FirebaseRecentChatHelper.shared.updateRecentChat(chatRoomId: chatId, lastMessage: text)
         }
     }
     
