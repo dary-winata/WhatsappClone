@@ -17,6 +17,7 @@ protocol ChatsViewModelDelegate: AnyObject {
     func configureHeaderView()
     func reloadMessages(animated: Bool)
     func navigateToProfile(user: UserModel)
+    func setHeaderStatusIsTyping(isTyping: Bool)
 }
 
 protocol ChatsViewModelProtocol: AnyObject {
@@ -28,6 +29,7 @@ protocol ChatsViewModelProtocol: AnyObject {
     func getReceiveUser() -> MessageModel
     func onHeaderViewDidTapped()
     func createOldMessages()
+    func userOnTyping(isTyping: Bool)
 }
 
 class ChatsViewModel: ChatsViewModelProtocol {
@@ -44,6 +46,7 @@ class ChatsViewModel: ChatsViewModelProtocol {
     private var realmToken: NotificationToken?
     private var maxChatDisplay: Int = 0
     private var minChatDisplay: Int = 0
+    private var isUserTyping: Bool = false
     
     init(messageModel: MessageModel) {
         self.messageModel = messageModel
@@ -51,6 +54,7 @@ class ChatsViewModel: ChatsViewModelProtocol {
     
     func onViewDidLoad() {
         listenForNewChat()
+        listenForTypingStatus()
         delegate?.configBackgroundChatView()
         delegate?.configMessageCollectionView()
         delegate?.configMessageInputBar()
@@ -90,6 +94,7 @@ class ChatsViewModel: ChatsViewModelProtocol {
                 self.createMessages()
                 self.delegate?.reloadMessages(animated: false)
             case .update(_ , deletions: _, insertions: let insertion, modifications: _):
+                print("chat inserted")
                 self.updateInputedMessages(insertion: insertion)
             case .error(let err):
                 print("error: \(err.localizedDescription)")
@@ -117,6 +122,13 @@ class ChatsViewModel: ChatsViewModelProtocol {
         
         for idx in (minChatDisplay ... maxChatDisplay).reversed() {
             createOlderMessage(allLocalMessage[idx])
+        }
+    }
+    
+    func userOnTyping(isTyping: Bool) {
+        if isTyping != self.isUserTyping {
+            FirebaseTypingListener.shared.saveTypingStatus(typingStatus: isTyping, chatRoomId: messageModel.chatId)
+            self.isUserTyping = isTyping
         }
     }
 }
@@ -161,5 +173,12 @@ private extension ChatsViewModel {
     func lastMessageDate() -> Date {
         let lastMessage = allLocalMessage?.last?.date ?? Date()
         return Calendar.current.date(byAdding: .second, value: 1, to: lastMessage) ?? Date()
+    }
+    
+    func listenForTypingStatus() {
+        FirebaseTypingListener.shared.setListenerForTypingStatus(chatRoomId: messageModel.chatId) { isTyping in
+            self.isUserTyping = isTyping
+            self.delegate?.setHeaderStatusIsTyping(isTyping: self.isUserTyping)
+        }
     }
 }

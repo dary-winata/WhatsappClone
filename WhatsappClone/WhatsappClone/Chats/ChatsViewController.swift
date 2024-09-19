@@ -80,6 +80,11 @@ class ChatsViewController: MessagesViewController {
         viewModel.onViewDidLoad()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.userOnTyping(isTyping: false)
+    }
+    
     func onChatMessageIsEdited(isEdited: Bool) {
         if isEdited {
             messageInputBar.setStackViewItems([messageInputBar.sendButton], forStack: .right, animated: false)
@@ -196,5 +201,9 @@ extension ChatsViewController: ChatsViewModelDelegate {
         let profileVC = ProfileViewController(viewModel: profileVM)
         
         navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
+    func setHeaderStatusIsTyping(isTyping: Bool) {
+        headerChatView.setupStatusTyping(isTyping: isTyping)
     }
 }

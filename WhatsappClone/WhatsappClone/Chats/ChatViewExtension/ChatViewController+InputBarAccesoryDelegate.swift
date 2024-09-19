@@ -11,6 +11,7 @@ import InputBarAccessoryView
 extension ChatsViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, textViewTextDidChangeTo text: String) {
         onChatMessageIsEdited(isEdited: !text.isEmpty)
+        viewModel.userOnTyping(isTyping: !text.isEmpty)
     }
     
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {

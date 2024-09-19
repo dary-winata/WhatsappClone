@@ -60,6 +60,10 @@ class ChatHeaderView: UIView {
             }
         }
     }
+    
+    func setupStatusTyping(isTyping: Bool) {
+        statusLabel.text = isTyping ? "Typing..." : "Tap This For Viewing Profile"
+    }
 }
 
 private extension ChatHeaderView {
