@@ -23,6 +23,7 @@ protocol ChatsViewModelDelegate: AnyObject {
 protocol ChatsViewModelProtocol: AnyObject {
     var delegate: ChatsViewModelDelegate? {get set}
     func onViewDidLoad()
+    func viewWillDisappear()
     func getCurrentUser() -> MKSender
     func getMKMessage() -> [MKMessage]
     func onAttachButtonDidTapped(_ text: String?)
@@ -48,6 +49,7 @@ class ChatsViewModel: ChatsViewModelProtocol {
     private var maxChatDisplay: Int = 0
     private var minChatDisplay: Int = 0
     private var isUserTyping: Bool = false
+    private var isViewDisplayed: Bool = false
     
     init(messageModel: MessageModel) {
         self.messageModel = messageModel
@@ -56,12 +58,20 @@ class ChatsViewModel: ChatsViewModelProtocol {
     func onViewDidLoad() {
         listenForNewChat()
         listenForTypingStatus()
+        listenForEditedStatusMessage()
         delegate?.configBackgroundChatView()
         delegate?.configMessageCollectionView()
         delegate?.configMessageInputBar()
         delegate?.configureCustomCell()
         delegate?.configureHeaderView()
         loadChats()
+        isViewDisplayed = true
+    }
+    
+    func viewWillDisappear() {
+        userOnTyping(isTyping: false)
+        resetCounterChat()
+        isViewDisplayed = false
     }
     
     func getMKMessage() -> [MKMessage] {
@@ -153,8 +163,18 @@ private extension ChatsViewModel {
     }
     
     func createMessage(_ message: LocalMessage) {
+        if message.senderId != FirebaseHelper.getCurrentId && isViewDisplayed == true {
+            updateMessageStatus(message: message, memberIds: [FirebaseHelper.getCurrentId, messageModel.recipientId])
+        }
+        
         if let localMessage = IncomeChatHelper.createMessage(localMessage: message) {
             mkMessages.append(localMessage)
+        }
+    }
+    
+    func updateMessageStatus(message: LocalMessage, memberIds: [String]) {
+        if message.status != "read" {
+            FirebaseMessageListener.shared.updateMessageReadStatus(message, membersId: memberIds)
         }
     }
     
@@ -173,6 +193,21 @@ private extension ChatsViewModel {
     
     func listenForNewChat() {
         FirebaseMessageListener.shared.listenForNewChat(chatId: messageModel.chatId, receiveId: messageModel.recipientId, lastMessageDate: lastMessageDate())
+    }
+    
+    func listenForEditedStatusMessage() {
+        FirebaseMessageListener.shared.listenForReadStatusChat(chatId: messageModel.chatId, receiveId: messageModel.recipientId) { message in
+            for idx in 0 ..< self.mkMessages.count {
+                if message.id == self.mkMessages[idx].messageId {
+                    self.mkMessages[idx].status = message.status
+                    self.mkMessages[idx].readDate = message.date
+                }
+                
+                if message.status == ChatStatusEnum.read.rawValue {
+                    self.delegate?.reloadMessages(animated: true)
+                }
+            }
+        }
     }
     
     func lastMessageDate() -> Date {

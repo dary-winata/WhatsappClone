@@ -9,4 +9,5 @@ import Foundation
 
 enum ChatStatusEnum: String {
     case sent
+    case read
 }

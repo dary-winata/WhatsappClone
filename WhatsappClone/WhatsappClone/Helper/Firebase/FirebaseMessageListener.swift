@@ -17,7 +17,7 @@ class FirebaseMessageListener {
     
     // Mark: Listen to new chat
     func listenForNewChat(chatId: String, receiveId: String, lastMessageDate: Date) {
-        FirebaseHelper.FirebaseReference(.Message).document(receiveId).collection(chatId).whereField(keyDate, isGreaterThan: lastMessageDate).addSnapshotListener { snapshot, err in
+        newChatListener = FirebaseHelper.FirebaseReference(.Message).document(receiveId).collection(chatId).whereField(keyDate, isGreaterThan: lastMessageDate).addSnapshotListener { snapshot, err in
             guard let snapshot else {
                 return
             }
@@ -44,6 +44,30 @@ class FirebaseMessageListener {
         }
     }
     
+    // Mark: listen to update chat
+    func listenForReadStatusChat(chatId: String, receiveId: String, completion: @escaping (LocalMessage) -> Void) {
+        FirebaseHelper.FirebaseReference(.Message).document(receiveId).collection(chatId).addSnapshotListener { snapshot, err in
+            guard let snapshot else {return}
+            
+            for change in snapshot.documentChanges {
+                if change.type == .modified {
+                    let result = Result {
+                        try? change.document.data(as: LocalMessage.self)
+                    }
+                    
+                    switch result {
+                    case .success(let message):
+                        if let message {
+                            completion(message)
+                        }
+                    case .failure(let err):
+                        print("error decode to local message: \(err.localizedDescription)")
+                    }
+                }
+            }
+        }
+    }
+    
     // Mark: Save, Update, Delete Message
     func saveMessage(_ message: LocalMessage, memberId: String) {
         do {
@@ -53,6 +77,13 @@ class FirebaseMessageListener {
                 .setData(from: message)
         } catch {
             print("error adding to firebase: ", error.localizedDescription)
+        }
+    }
+    
+    func updateMessageReadStatus(_ message: LocalMessage, membersId: [String]) {
+        let editedMessage: [String: Any] = [keyReadDate: Date(), keyStatus: "read"]
+        for id in membersId {
+            FirebaseHelper.FirebaseReference(.Message).document(id).collection(message.chatRoomId).document(message.id).updateData(editedMessage)
         }
     }
     

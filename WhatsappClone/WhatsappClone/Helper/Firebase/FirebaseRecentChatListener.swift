@@ -46,7 +46,7 @@ class FirebaseRecentChatListener {
         }
     }
     
-    func updateRecentChat(chatRoomId: String, lastMessage: String) {
-        
-    }
+//    func updateRecentChat(chatRoomId: String, lastMessage: String) {
+//        
+//    }
 }
