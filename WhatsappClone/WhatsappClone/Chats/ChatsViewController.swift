@@ -10,6 +10,27 @@ import MessageKit
 import UIKit
 
 class ChatsViewController: MessagesViewController {
+    private lazy var uiAlertController: UIAlertController = {
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cameraAlertItem = UIAlertAction(title: "Camera", style: .default) { alert in
+            print("camera")
+        }
+        cameraAlertItem.setValue(UIImage(systemName: "camera"), forKey: "image")
+        
+        let libraryAlertItem = UIAlertAction(title: "Library", style: .default) { alert in
+            print("library")
+        }
+        libraryAlertItem.setValue(UIImage(systemName: "photo.on.rectangle"), forKey: "image")
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        controller.addAction(cameraAlertItem)
+        controller.addAction(libraryAlertItem)
+        controller.addAction(cancel)
+        
+        return controller
+    }()
+    
     private lazy var backgroundChat: UIImageView = {
         let imageView: UIImageView = UIImageView(frame: .zero)
         imageView.contentMode = .scaleAspectFill
@@ -107,7 +128,7 @@ class ChatsViewController: MessagesViewController {
 
 private extension ChatsViewController {
     func attachButtonDidTapped() {
-        print("attach tapped")
+        self.present(uiAlertController, animated: true)
     }
     
     func cameraButtonDidTapped() {
