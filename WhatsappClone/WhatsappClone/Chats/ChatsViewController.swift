@@ -8,17 +8,18 @@
 import InputBarAccessoryView
 import MessageKit
 import UIKit
+import YPImagePicker
 
 class ChatsViewController: MessagesViewController {
     private lazy var uiAlertController: UIAlertController = {
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let cameraAlertItem = UIAlertAction(title: "Camera", style: .default) { alert in
-            print("camera")
+            self.onAttachmentDidTapped(true)
         }
         cameraAlertItem.setValue(UIImage(systemName: "camera"), forKey: "image")
         
         let libraryAlertItem = UIAlertAction(title: "Library", style: .default) { alert in
-            print("library")
+            self.onAttachmentDidTapped(false)
         }
         libraryAlertItem.setValue(UIImage(systemName: "photo.on.rectangle"), forKey: "image")
         
@@ -82,6 +83,19 @@ class ChatsViewController: MessagesViewController {
         return headerView
     }()
     
+    private lazy var imagePickerConfig: YPImagePickerConfiguration = {
+        var picker = YPImagePickerConfiguration()
+        picker.showsPhotoFilters = false
+        
+        return picker
+    }()
+    
+    private lazy var imagePicker: YPImagePicker = {
+        let picker = YPImagePicker()
+        
+        return picker
+    }()
+    
     private lazy var refreshController: UIRefreshControl = UIRefreshControl()
     
     let viewModel: ChatsViewModelProtocol
@@ -132,7 +146,7 @@ private extension ChatsViewController {
     }
     
     func cameraButtonDidTapped() {
-        print("camera did tapped")
+        onAttachmentDidTapped(true)
     }
     
     func microphoneButtonDidTapped() {
@@ -143,6 +157,20 @@ private extension ChatsViewController {
     func onHeaderViewDidTapped() {
         print("testing")
         viewModel.onHeaderViewDidTapped()
+    }
+    
+    private func onAttachmentDidTapped(_ isCamera: Bool) {
+        if isCamera {
+            imagePickerConfig.screens = [.photo]
+            imagePickerConfig.library.maxNumberOfItems = 1
+        } else {
+            imagePickerConfig.screens = [.library]
+            imagePickerConfig.library.maxNumberOfItems = 0
+        }
+        
+        YPImagePickerConfiguration.shared = imagePickerConfig
+        viewModel.onItemAttachmentDidTapped(imagePicker)
+        present(imagePicker, animated: true)
     }
 }
 

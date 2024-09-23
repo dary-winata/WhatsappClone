@@ -8,6 +8,7 @@
 import Foundation
 import RealmSwift
 import UIKit
+import YPImagePicker
 
 protocol ChatsViewModelDelegate: AnyObject {
     func configBackgroundChatView()
@@ -32,6 +33,7 @@ protocol ChatsViewModelProtocol: AnyObject {
     func createOldMessages()
     func userOnTyping(isTyping: Bool)
     func resetCounterChat()
+    func onItemAttachmentDidTapped(_ picker: YPImagePicker)
 }
 
 class ChatsViewModel: ChatsViewModelProtocol {
@@ -145,6 +147,29 @@ class ChatsViewModel: ChatsViewModelProtocol {
     
     func resetCounterChat() {
         FirebaseRecentChatHelper.shared.resetRecentChatCounter(chatRooomId: messageModel.chatId)
+    }
+    
+    func onItemAttachmentDidTapped(_ picker: YPImagePicker) {
+        picker.didFinishPicking { [unowned picker] items, cancelled in
+            if cancelled {
+                print("Its canceled")
+            }
+            
+            if let image = items.singlePhoto {
+                print(image.fromCamera)
+            } else {
+                for item in items {
+                    switch item {
+                    case .photo(let img):
+                        print(img.image.size)
+                    case .video(let video):
+                        print(video.fromCamera)
+                    }
+                }
+            }
+            
+            picker.dismiss(animated: true)
+        }
     }
 }
 
